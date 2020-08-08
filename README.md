@@ -1,6 +1,6 @@
-##Secure ERP
+# Secure ERP
 
-#### Story
+## Story
 You are working at an enterprise solution company. A new client approaches you for an ERP software they need for the administration of their daily operations. Naturally, you have multiple complex solutions for this job.
 
 The problem is that the client is extremely suspicious about cloud technologies and the web in general. They say that what is on the net, or just on a computer that is connected to the Internet, is already compromised, and at least four countries' secret services come and go there regularly.
