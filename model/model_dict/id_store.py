@@ -36,7 +36,7 @@ def _set_id(id_enum):
 def get_id(id_enum):
     global ids
     _set_ids_from_file()
-    new_id = ids[id_enum]
+    new_id = ids.get(id_enum)
     _set_id(id_enum)
     _write_ids_to_file()
     return new_id

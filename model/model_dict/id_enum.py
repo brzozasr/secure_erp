@@ -1,5 +1,4 @@
 from enum import Enum
-# from model.model_dict.id_store import *
 
 
 class ID(Enum):
