@@ -2,10 +2,10 @@ class View:
     @staticmethod
     def display_crm(crm):
         if len(crm) > 0:
-            line = f"+{'-' * 5}+{'-' * 20}+{'-' * 30}+{'-' * 20}+{'-' * 35}+"
-            title_line = f"|{'ID':^5}|{'Name':^20}|{'Surname':^30}|{'Company':^20}|{'Email':^35}|\n"
+            line = f"+{'-' * 5}+{'-' * 20}+{'-' * 30}+{'-' * 25}+{'-' * 35}+"
+            title_line = f"|{'ID':^5}|{'Name':^20}|{'Surname':^30}|{'Company':^25}|{'Email':^35}|\n"
             header = line + "\n" + title_line + line + "\n"
-            space = [20, 30, 20, 35]
+            space = [20, 30, 25, 35]
             data_line = ""
             for id_customer, customer in crm.items():
                 counter = 0
