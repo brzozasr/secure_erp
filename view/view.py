@@ -1,18 +1,15 @@
 class View:
     @staticmethod
-    def display_crm(crm):
-        if len(crm) > 0:
-            len_id = 5
-            len_name = 20
-            len_surname = 30
-            len_company = 25
-            len_email = 35
+    def display_crm(crm_dict, *len_crm_data):
+        if len(crm_dict) > 0:
+            # [5, 20, 30, 25, 35]
+            len_id, len_name, len_surname, len_company, len_email = len_crm_data
             line = f"+{'-' * len_id}+{'-' * len_name}+{'-' * len_surname}+{'-' * len_company}+{'-' * len_email}+"
             title_line = f"|{'ID':^{len_id}}|{'Name':^{len_name}}|{'Surname':^{len_surname}}|{'Company':^{len_company}}|{'Email':^{len_email}}|\n"
             header = line + "\n" + title_line + line + "\n"
             space = [len_name, len_surname, len_company, len_email]
             data_line = ""
-            for id_customer, customer in crm.items():
+            for id_customer, customer in crm_dict.items():
                 counter = 0
                 data_line += f"|{id_customer:>{len_id}}|"
                 for key in customer:
