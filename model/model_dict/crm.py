@@ -88,7 +88,7 @@ def insert_crm(*crm_value):
         name, surname, company, email = crm_value
         min_len_name, max_len_name = (2, 20)
         min_len_surname, max_len_surname = (2, 30)
-        min_len_company, max_len_company = (2, 20)
+        min_len_company, max_len_company = (2, 25)
         min_len_email, max_len_email = (6, 35)
         if not _is_crm_len_correct(len(name), min_len_name, max_len_name):
             print('\033[31m',
@@ -141,7 +141,7 @@ def update_crm(*crm_value):
         id_crm, name, surname, company, email = crm_value
         min_len_name, max_len_name = (2, 20)
         min_len_surname, max_len_surname = (2, 30)
-        min_len_company, max_len_company = (2, 20)
+        min_len_company, max_len_company = (2, 25)
         min_len_email, max_len_email = (6, 35)
         if not _is_crm_len_correct(len(name), min_len_name, max_len_name):
             print('\033[31m',
