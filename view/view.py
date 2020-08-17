@@ -1,4 +1,24 @@
+import os
+import subprocess
+
+
 class View:
+    def __init__(self, error_message=None):
+        self.__error_message = error_message
+
+    @property
+    def error_message(self):
+        return self.__error_message
+
+    @error_message.setter
+    def error_message(self, value):
+        self.__error_message = value
+
+    def print_message(self):
+        if self.__error_message is not None:
+            print(f"\033[31m{self.__error_message}\033[0m")
+            self.__error_message = None
+
     @staticmethod
     def display_crm(crm_dict, *len_crm_data):
         if len(crm_dict) > 0:
@@ -19,6 +39,16 @@ class View:
                         data_line += f"{customer[key]:^{space[counter]}}|\n"
                     counter += 1
             print(header + data_line + line)
+
+    @staticmethod
+    def clear_console():
+        """Function clears the console."""
+        if os.name in ('nt', 'dos'):
+            subprocess.call("cls")
+        elif os.name in ('linux', 'osx', 'posix'):
+            subprocess.call("clear")
+        else:
+            print("\n" * 120)
 
 
 if __name__ == "__main__":

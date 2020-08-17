@@ -7,6 +7,7 @@ class ModelJSON:
         self.crm = set_crm_from_file()
         self.hr = set_hr_from_file()
 
+    # CRM MODEL
     def delete_crm(self, id_crm):
         result = delete_crm(id_crm, self.crm)
         if result:
@@ -39,6 +40,22 @@ class ModelJSON:
 
     def write_crm(self):
         write_crm_to_file(self.crm)
+
+    # HR MODEL
+    def login_hr(self, email_hr):
+        username, password = login_hr(self.hr, email_hr)
+        if username is not None:
+            self.write_hr()
+        return username, password
+
+    def delete_hr(self, id_hr):
+        result = delete_hr(id_hr, self.hr)
+        if result:
+            self.write_hr()
+        return result
+
+    def write_hr(self):
+        write_hr_to_file(self.hr)
 
 
 if __name__ == "__main__":
