@@ -57,7 +57,7 @@ class Controller:
 
             if module == "exit":
                 Controller.is_running = False
-            elif Controller.is_module_correct(module):
+            elif Controller._is_module_correct(module):
                 if int(module) == 1:
                     self.view.clear_console()
                     self.display_crm()
@@ -82,6 +82,101 @@ class Controller:
 
             if crm_action == "exit":
                 Controller.is_running = False
+            elif Controller._is_crm_correct(crm_action):
+                if int(crm_action) == 1:
+                    self.view.clear_console()
+                    self.display_insert_crm()
+                elif int(crm_action) == 2:
+                    pass
+                elif int(crm_action) == 3:
+                    pass
+                elif int(crm_action) == 4:
+                    pass
+                elif int(crm_action) == 5:
+                    pass
+            else:
+                self.view.clear_console()
+                self.view.error_message = "Invalid a CRM module number!!!"
+                self.view.print_message()
+
+    def display_insert_crm(self):
+        is_working = True
+        insert_data = []
+        while is_working:
+            print("\033[36mEntering client data or write \"exit\" to go menu up:\033[0m")
+            is_inside_working = True
+            while is_inside_working:
+                name = input("Entering client's name: ")
+                if name == "exit":
+                    insert_data.clear()
+                    is_working = False
+                    is_inside_working = False
+                elif self._is_len_correct(len(name), Controller.len_crm["len_name_crm"][0],
+                                          Controller.len_crm["len_name_crm"][1]):
+                    insert_data.append(name)
+                    break
+                else:
+                    self.view.error_message = f"Invalid a client's name, the length should be " \
+                                              f"between {Controller.len_crm['len_name_crm'][0]} " \
+                                              f"and {Controller.len_crm['len_name_crm'][1]}!!!"
+                    self.view.print_message()
+
+            while is_inside_working:
+                surname = input("Entering client's surname: ")
+                if surname == "exit":
+                    insert_data.clear()
+                    is_working = False
+                    is_inside_working = False
+                elif self._is_len_correct(len(surname), Controller.len_crm["len_surname_crm"][0],
+                                          Controller.len_crm["len_surname_crm"][1]):
+                    insert_data.append(surname)
+                    break
+                else:
+                    self.view.error_message = f"Invalid a client's surname, the length should be " \
+                                              f"between {Controller.len_crm['len_surname_crm'][0]} " \
+                                              f"and {Controller.len_crm['len_surname_crm'][1]}!!!"
+                    self.view.print_message()
+
+            while is_inside_working:
+                company = input("Entering client's company name: ")
+                if company == "exit":
+                    insert_data.clear()
+                    is_working = False
+                    is_inside_working = False
+                elif self._is_len_correct(len(company), Controller.len_crm["len_company_crm"][0],
+                                          Controller.len_crm["len_company_crm"][1]):
+                    insert_data.append(company)
+                    break
+                else:
+                    self.view.error_message = f"Invalid a client's company name, the length should be " \
+                                              f"between {Controller.len_crm['len_company_crm'][0]} " \
+                                              f"and {Controller.len_crm['len_company_crm'][1]}!!!"
+                    self.view.print_message()
+
+            while is_inside_working:
+                email = input("Entering client's email: ")
+                if email == "exit":
+                    insert_data.clear()
+                    is_working = False
+                    is_inside_working = False
+                elif self._is_len_correct(len(email), Controller.len_crm["len_email_crm"][0],
+                                          Controller.len_crm["len_email_crm"][1]) and "@" in email and "." in email:
+                    insert_data.append(email)
+                    if self.model.insert_crm(*insert_data):
+                        is_working = False
+                        is_inside_working = False
+                        self.view.clear_console()
+                        self.view.display_crm(self.model.crm, *self.len_max_crm())
+                        self.view.error_message = "The client has been added."
+                        self.view.print_message()
+                    else:
+                        break
+                else:
+                    self.view.error_message = f"Invalid a client's email, the length should be " \
+                                              f"between {Controller.len_crm['len_email_crm'][0]} " \
+                                              f"and {Controller.len_crm['len_email_crm'][1]}, " \
+                                              f"\"@\" and \".\" required!!!"
+                    self.view.print_message()
 
     @classmethod
     def len_max_crm(cls):
@@ -98,7 +193,7 @@ class Controller:
         return len_max
 
     @staticmethod
-    def is_module_correct(module_no):
+    def _is_module_correct(module_no):
         try:
             num = int(module_no)
             if num < 1 or num > 3:
@@ -106,6 +201,23 @@ class Controller:
         except ValueError:
             return False
         return True
+
+    @staticmethod
+    def _is_crm_correct(module_no):
+        try:
+            num = int(module_no)
+            if num < 1 or num > 5:
+                return False
+        except ValueError:
+            return False
+        return True
+
+    @staticmethod
+    def _is_len_correct(length, min_length, max_length):
+        if min_length <= length <= max_length:
+            return True
+        else:
+            return False
 
 
 if __name__ == "__main__":
@@ -115,6 +227,3 @@ if __name__ == "__main__":
     # test = "12345678"
     # hash_object = hashlib.sha1(str(test).encode('utf-8'))
     # print('Hash', hash_object.hexdigest())
-
-
-

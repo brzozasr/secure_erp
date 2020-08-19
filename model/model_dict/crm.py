@@ -76,34 +76,8 @@ def insert_crm(crm_dict, *crm_value):
     key_list = ["name_crm", "surname_crm", "company_crm", "email_crm"]
     if len(crm_value) == 4:
         name, surname, company, email = crm_value
-        min_len_name, max_len_name = (2, 20)
-        min_len_surname, max_len_surname = (2, 30)
-        min_len_company, max_len_company = (2, 25)
-        min_len_email, max_len_email = (6, 35)
-        if not _is_crm_len_correct(len(name), min_len_name, max_len_name):
-            print('\033[31m',
-                  f"The number of characters in a \"Name\" must be in the range "
-                  f"of {min_len_name} to {max_len_name}!",
-                  '\033[0m')
-            return False
-        elif not _is_crm_len_correct(len(surname), min_len_surname, max_len_surname):
-            print('\033[31m',
-                  f"The number of characters in a \"Surname\" must be in the range "
-                  f"of {min_len_surname} to {max_len_surname}!",
-                  '\033[0m')
-            return False
-        elif not _is_crm_len_correct(len(company), min_len_company, max_len_company):
-            print('\033[31m',
-                  f"The number of characters in a \"Company name\" must be in the "
-                  f"range of {min_len_company} to {max_len_company}!",
-                  '\033[0m')
-            return False
-        elif not _is_crm_len_correct(len(email), min_len_email, max_len_email) or \
-                "@" not in email or "." not in email or not _is_unique(crm_dict, "email_crm", email):
-            print('\033[31m',
-                  f"The number of characters in a \"Email\" must be in the range of "
-                  f"{min_len_email} to {max_len_email}, has to consist \"@\" and \".\" and has to be unique!",
-                  '\033[0m')
+        if not _is_unique(crm_dict, "email_crm", email):
+            print('\033[31m', "The \"Email\" has to be unique!", '\033[0m')
             return False
         else:
             id_crm = str(get_id(ID.CRM.value))
@@ -112,7 +86,7 @@ def insert_crm(crm_dict, *crm_value):
                 crm_dict[id_crm][k] = v
             return True
     else:
-        print('\033[31m', "Missing argument(s)! There are 4 arguments is required!", '\033[0m')
+        print('\033[31m', "Missing argument(s)! There are 4 arguments are required!", '\033[0m')
         return False
 
 
