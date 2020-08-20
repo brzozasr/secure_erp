@@ -1,5 +1,4 @@
 import hashlib
-from datetime import datetime
 from getpass import getpass
 
 from model.model_dict.model_json import *
@@ -328,6 +327,8 @@ class Controller:
             print("(3) Delete the employee")
             print("(4) Select the employee by ID")
             print("(5) Show all employees")
+            print("(6) Names of the youngest and the oldest employees")
+            print("(7) The average age of employees")
             hr_action = input("Select action: ")
 
             if hr_action == "exit":
@@ -348,6 +349,12 @@ class Controller:
                 elif int(hr_action) == 5:
                     self.view.clear_console()
                     self.display_all_hr()
+                elif int(hr_action) == 6:
+                    self.view.clear_console()
+                    self.display_min_max_age_hr()
+                elif int(hr_action) == 7:
+                    self.view.clear_console()
+                    self.display_average_age_hr()
             else:
                 self.view.clear_console()
                 self.view.error_message = "Invalid a HR module number!!!"
@@ -643,6 +650,23 @@ class Controller:
             else:
                 break
 
+    def display_min_max_age_hr(self):
+        if len(self.model.hr) > 0:
+            self.view.clear_console()
+            new_len = self.len_max_hr()[0:len(self.len_max_hr()) - 1]
+            self.view.display_hr(self.model.min_max_age_hr(), *new_len)
+        else:
+            self.view.error_message = "There is no data to display."
+            self.view.print_message()
+
+    def display_average_age_hr(self):
+        if len(self.model.hr) > 0:
+            self.view.clear_console()
+            self.view.display_aver_age_hr(self.model.average_age_hr())
+        else:
+            self.view.error_message = "There is no data to display."
+            self.view.print_message()
+
     @classmethod
     def len_max_crm(cls):
         len_max = []
@@ -681,7 +705,7 @@ class Controller:
     def _is_hr_correct(module_no):
         try:
             num = int(module_no)
-            if num < 1 or num > 5:
+            if num < 1 or num > 7:
                 return False
         except ValueError:
             return False

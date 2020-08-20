@@ -1,5 +1,6 @@
 from model.model_dict.id_store import *
 from model.model_dict.id_enum import ID
+from datetime import datetime
 
 current_dir = os.path.dirname(os.path.realpath(__file__))
 json_file = os.path.join(current_dir, "hr.json")
@@ -120,8 +121,73 @@ def update_hr(hr_dict, *hr_value):
         return False
 
 
+def min_max_employees_age(hr_dict):
+    max_dict = {}
+    min_dict = {}
+    date_max = '1000-01-01'
+    date_min = '4000-01-01'
+    for id_key, value in hr_dict.items():
+        if id_key != "0":
+            for key in value:
+                if key == "birthday_hr":
+                    d_max_1 = datetime(*map(int, date_max.split('-')))
+                    d_max_2 = datetime(*map(int, value['birthday_hr'].split('-')))
+                    if d_max_1 < d_max_2:
+                        max_dict.clear()
+                        max_dict.update({id_key: value})
+                        date_max = str(d_max_2)[0:10]
+                    elif d_max_1 == d_max_2:
+                        max_dict.update({id_key: value})
+
+                    d_min_1 = datetime(*map(int, date_min.split('-')))
+                    d_min_2 = datetime(*map(int, value['birthday_hr'].split('-')))
+                    if d_min_1 > d_min_2:
+                        min_dict.clear()
+                        min_dict.update({id_key: value})
+                        date_min = str(d_min_2)[0:10]
+                    elif d_min_1 == d_min_2:
+                        max_dict.update({id_key: value})
+    return {**max_dict, **min_dict}
+
+
+def average_age_employees(hr_dict):
+    sum_age = 0
+    for id_key, value in hr_dict.items():
+        if id_key != "0":
+            for key in value:
+                if key == "birthday_hr":
+                    sum_age += (datetime.now() - datetime(*map(int, value['birthday_hr'].split('-')))).days
+    if sum_age > 0:
+        return round((sum_age / 365) / len(hr_dict), 2)
+    else:
+        return sum_age
+
+
 if __name__ == "__main__":
     test_dict = {"0": {"name_hr": "admin", "surname_hr": "admin", "birthday_hr": "1970-01-01", "department_hr": "admin",
-                       "email_hr": "admin@secure.erp", "password_hr": "7c222fb2927d828af22f592134e8932480637c0d"}}
+                       "email_hr": "admin@secure.erp", "password_hr": "7c222fb2927d828af22f592134e8932480637c0d"},
+                 "2": {"name_hr": "Stefan", "surname_hr": "Siw\u0105cha", "birthday_hr": "1972-05-31",
+                       "department_hr": "Sale", "email_hr": "s.siwacha@secure.erp",
+                       "password_hr": "7c222fb2927d828af22f592134e8932480637c0d"},
+                 "4": {"name_hr": "Andrzej", "surname_hr": "Weso\u0142owski", "birthday_hr": "2002-10-01",
+                       "department_hr": "Sale", "email_hr": "a.wesolowski@secure.erp",
+                       "password_hr": "a7d579ba76398070eae654c30ff153a4c273272a"},
+                 "5": {"name_hr": "Piotr", "surname_hr": "Chi\u0142\u0142a", "birthday_hr": "2000-12-12",
+                       "department_hr": "HR", "email_hr": "p.chilla@secure.erp",
+                       "password_hr": "7c222fb2927d828af22f592134e8932480637c0d"},
+                 "7": {"name_hr": "Marian", "surname_hr": "Stan", "birthday_hr": "2002-10-01",
+                       "department_hr": "Sale", "email_hr": "m.stan@secure.erp",
+                       "password_hr": "a7d579ba76398070eae654c30ff153a4c273272a"},
+                 "8": {"name_hr": "Wiktor", "surname_hr": "Kotlarz", "birthday_hr": "1990-02-10",
+                       "department_hr": "Accountant", "email_hr": "w.kotlarz@secure.erp",
+                       "password_hr": "7c222fb2927d828af22f592134e8932480637c0d"},
+                 "9": {"name_hr": "Halina", "surname_hr": "Rycerz", "birthday_hr": "1972-05-31",
+                       "department_hr": "Accountant", "email_hr": "h.rycerz@secure.erp",
+                       "password_hr": "7c222fb2927d828af22f592134e8932480637c0d"},
+                 "10": {"name_hr": "Laura", "surname_hr": "Brzoza", "birthday_hr": "1989-05-10",
+                        "department_hr": "Accountant", "email_hr": "l.brzoza@secure.erp",
+                        "password_hr": "7c222fb2927d828af22f592134e8932480637c0d"}}
 
-    print(login_hr(test_dict, "admin@secure.erp"))
+    test_dict1 = {}
+
+    print(average_age_employees(test_dict1))

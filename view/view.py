@@ -65,6 +65,12 @@ class View:
             print(header + data_line + line)
 
     @staticmethod
+    def display_aver_age_hr(aver_age):
+        line = f"+{'-' * 38}+{'-' * 7}+"
+        content = f"|{'Average age of employees (in years)':<38}|{aver_age:^7}|"
+        print(line + "\n" + content + "\n" + line)
+
+    @staticmethod
     def clear_console():
         """Function clears the console."""
         if os.name in ('nt', 'dos'):

@@ -66,6 +66,18 @@ class ModelJSON:
             self.write_hr()
         return result
 
+    def min_max_age_hr(self):
+        result = min_max_employees_age(self.hr)
+        if result is not None:
+            self.write_hr()
+        return result
+
+    def average_age_hr(self):
+        result = average_age_employees(self.hr)
+        if result > 0:
+            self.write_hr()
+        return result
+
     def write_hr(self):
         write_hr_to_file(self.hr)
 
