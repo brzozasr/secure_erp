@@ -87,13 +87,17 @@ class Controller:
                     self.view.clear_console()
                     self.display_insert_crm()
                 elif int(crm_action) == 2:
-                    pass
+                    self.view.clear_console()
+                    self.display_update_crm()
                 elif int(crm_action) == 3:
-                    pass
+                    self.view.clear_console()
+                    self.display_delete_crm()
                 elif int(crm_action) == 4:
-                    pass
+                    self.view.clear_console()
+                    self.display_select_crm()
                 elif int(crm_action) == 5:
-                    pass
+                    self.view.clear_console()
+                    self.display_all_crm()
             else:
                 self.view.clear_console()
                 self.view.error_message = "Invalid a CRM module number!!!"
@@ -103,7 +107,7 @@ class Controller:
         is_working = True
         insert_data = []
         while is_working:
-            print("\033[36mEntering client data or write \"exit\" to go menu up:\033[0m")
+            print("\033[36mEntering client data to insert or write \"exit\" to go menu up:\033[0m")
             is_inside_working = True
             while is_inside_working:
                 name = input("Entering client's name: ")
@@ -163,6 +167,7 @@ class Controller:
                                           Controller.len_crm["len_email_crm"][1]) and "@" in email and "." in email:
                     insert_data.append(email)
                     if self.model.insert_crm(*insert_data):
+                        insert_data.clear()
                         is_working = False
                         is_inside_working = False
                         self.view.clear_console()
@@ -177,6 +182,136 @@ class Controller:
                                               f"and {Controller.len_crm['len_email_crm'][1]}, " \
                                               f"\"@\" and \".\" required!!!"
                     self.view.print_message()
+
+    def display_update_crm(self):
+        is_working = True
+        insert_data = []
+        while is_working:
+            print("\033[36mEntering client data to update or write \"exit\" to go menu up:\033[0m")
+            is_inside_working = True
+            while is_inside_working:
+                client_id = input("Entering client's ID: ")
+                if client_id == "exit":
+                    insert_data.clear()
+                    is_working = False
+                    is_inside_working = False
+                elif self._is_len_correct(len(client_id), Controller.len_crm["len_id_crm"][0],
+                                          Controller.len_crm["len_id_crm"][1]):
+                    insert_data.append(client_id)
+                    break
+                else:
+                    self.view.error_message = f"Invalid a client's name, the length should be " \
+                                              f"between {Controller.len_crm['len_id_crm'][0]} " \
+                                              f"and {Controller.len_crm['len_id_crm'][1]}!!!"
+                    self.view.print_message()
+
+            while is_inside_working:
+                name = input("Entering client's name: ")
+                if name == "exit":
+                    insert_data.clear()
+                    is_working = False
+                    is_inside_working = False
+                elif self._is_len_correct(len(name), Controller.len_crm["len_name_crm"][0],
+                                          Controller.len_crm["len_name_crm"][1]):
+                    insert_data.append(name)
+                    break
+                else:
+                    self.view.error_message = f"Invalid a client's name, the length should be " \
+                                              f"between {Controller.len_crm['len_name_crm'][0]} " \
+                                              f"and {Controller.len_crm['len_name_crm'][1]}!!!"
+                    self.view.print_message()
+
+            while is_inside_working:
+                surname = input("Entering client's surname: ")
+                if surname == "exit":
+                    insert_data.clear()
+                    is_working = False
+                    is_inside_working = False
+                elif self._is_len_correct(len(surname), Controller.len_crm["len_surname_crm"][0],
+                                          Controller.len_crm["len_surname_crm"][1]):
+                    insert_data.append(surname)
+                    break
+                else:
+                    self.view.error_message = f"Invalid a client's surname, the length should be " \
+                                              f"between {Controller.len_crm['len_surname_crm'][0]} " \
+                                              f"and {Controller.len_crm['len_surname_crm'][1]}!!!"
+                    self.view.print_message()
+
+            while is_inside_working:
+                company = input("Entering client's company name: ")
+                if company == "exit":
+                    insert_data.clear()
+                    is_working = False
+                    is_inside_working = False
+                elif self._is_len_correct(len(company), Controller.len_crm["len_company_crm"][0],
+                                          Controller.len_crm["len_company_crm"][1]):
+                    insert_data.append(company)
+                    break
+                else:
+                    self.view.error_message = f"Invalid a client's company name, the length should be " \
+                                              f"between {Controller.len_crm['len_company_crm'][0]} " \
+                                              f"and {Controller.len_crm['len_company_crm'][1]}!!!"
+                    self.view.print_message()
+
+            while is_inside_working:
+                email = input("Entering client's email: ")
+                if email == "exit":
+                    insert_data.clear()
+                    is_working = False
+                    is_inside_working = False
+                elif self._is_len_correct(len(email), Controller.len_crm["len_email_crm"][0],
+                                          Controller.len_crm["len_email_crm"][1]) and "@" in email and "." in email:
+                    insert_data.append(email)
+                    if self.model.update_crm(*insert_data):
+                        insert_data.clear()
+                        is_working = False
+                        is_inside_working = False
+                        self.view.clear_console()
+                        self.view.display_crm(self.model.crm, *self.len_max_crm())
+                        self.view.error_message = "The client has been updated."
+                        self.view.print_message()
+                    else:
+                        break
+                else:
+                    self.view.error_message = f"Invalid a client's email, the length should be " \
+                                              f"between {Controller.len_crm['len_email_crm'][0]} " \
+                                              f"and {Controller.len_crm['len_email_crm'][1]}, " \
+                                              f"\"@\" and \".\" required!!!"
+                    self.view.print_message()
+
+    def display_delete_crm(self):
+        is_working = True
+        while is_working:
+            print("\033[36mEntering client ID to delete or write \"exit\" to go menu up:\033[0m")
+            id_del = input("Entering client ID: ")
+            if self.model.delete_crm(id_del):
+                is_working = False
+                self.view.clear_console()
+                self.view.display_crm(self.model.crm, *self.len_max_crm())
+                self.view.error_message = f"The client with ID \"{id_del}\" has been deleted."
+                self.view.print_message()
+            else:
+                break
+
+    def display_all_crm(self):
+        if len(self.model.crm) > 0:
+            self.view.clear_console()
+            self.view.display_crm(self.model.crm, *self.len_max_crm())
+        else:
+            self.view.error_message = "There is no data to display."
+            self.view.print_message()
+
+    def display_select_crm(self):
+        is_working = True
+        while is_working:
+            print("\033[36mEntering client ID to display or write \"exit\" to go menu up:\033[0m")
+            id_select = input("Entering client ID: ")
+            if selected := self.model.select_crm(id_select):
+                is_working = False
+                self.view.clear_console()
+                self.view.display_crm(selected, *self.len_max_crm())
+            else:
+                break
 
     @classmethod
     def len_max_crm(cls):

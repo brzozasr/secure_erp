@@ -20,12 +20,6 @@ class ModelJSON:
             self.write_crm()
         return result
 
-    def select_all_crm(self):
-        result = select_all_crm(self.crm)
-        if result is not None:
-            self.write_crm()
-        return result
-
     def insert_crm(self, *crm_value):
         result = insert_crm(self.crm, *crm_value)
         if result:

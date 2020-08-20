@@ -40,7 +40,6 @@ def delete_crm(id_crm, crm_dict):
             is_key = True
     if is_key:
         del crm_dict[str(id_crm)]
-        print('\033[31m', f"The record with the key \"{id_crm}\" was removed!", '\033[0m')
         return True
     else:
         print('\033[31m', f"There is no such key \"{id_crm}\" in the database!", '\033[0m')
@@ -56,14 +55,6 @@ def select_crm(id_crm, crm_dict):
         return {str(id_crm): crm_dict[str(id_crm)]}
     else:
         print('\033[31m', f"There is no such key \"{id_crm}\" in the database!", '\033[0m')
-        return None
-
-
-def select_all_crm(crm_dict):
-    if len(crm_dict) > 0:
-        return crm_dict
-    else:
-        print('\033[31m', "There is no data to select in the database!", '\033[0m')
         return None
 
 
@@ -100,34 +91,8 @@ def update_crm(crm_dict, *crm_value):
     key_list = ["name_crm", "surname_crm", "company_crm", "email_crm"]
     if len(crm_value) == 5:
         id_crm, name, surname, company, email = crm_value
-        min_len_name, max_len_name = (2, 20)
-        min_len_surname, max_len_surname = (2, 30)
-        min_len_company, max_len_company = (2, 25)
-        min_len_email, max_len_email = (6, 35)
-        if not _is_crm_len_correct(len(name), min_len_name, max_len_name):
-            print('\033[31m',
-                  f"The number of characters in a \"Name\" must be in the range "
-                  f"of {min_len_name} to {max_len_name}!",
-                  '\033[0m')
-            return False
-        elif not _is_crm_len_correct(len(surname), min_len_surname, max_len_surname):
-            print('\033[31m',
-                  f"The number of characters in a \"Surname\" must be in the range "
-                  f"of {min_len_surname} to {max_len_surname}!",
-                  '\033[0m')
-            return False
-        elif not _is_crm_len_correct(len(company), min_len_company, max_len_company):
-            print('\033[31m',
-                  f"The number of characters in a \"Company name\" must be in the "
-                  f"range of {min_len_company} to {max_len_company}!",
-                  '\033[0m')
-            return False
-        elif not _is_crm_len_correct(len(email), min_len_email, max_len_email) or \
-                "@" not in email or "." not in email or not _is_unique(crm_dict, "email_crm", email):
-            print('\033[31m',
-                  f"The number of characters in a \"Email\" must be in the range of "
-                  f"{min_len_email} to {max_len_email}, has to consist \"@\" and \".\" and has to be unique!",
-                  '\033[0m')
+        if not _is_unique(crm_dict, "email_crm", email):
+            print('\033[31m', f"The \"Email\" has to be unique!", '\033[0m')
             return False
         else:
             is_key = False
