@@ -48,6 +48,24 @@ class ModelJSON:
             self.write_hr()
         return result
 
+    def select_hr(self, id_hr):
+        result = select_hr(id_hr, self.hr)
+        if result is not None:
+            self.write_hr()
+        return result
+
+    def insert_hr(self, *hr_value):
+        result = insert_hr(self.hr, *hr_value)
+        if result:
+            self.write_hr()
+        return result
+
+    def update_hr(self, *hr_value):
+        result = update_hr(self.hr, *hr_value)
+        if result:
+            self.write_hr()
+        return result
+
     def write_hr(self):
         write_hr_to_file(self.hr)
 

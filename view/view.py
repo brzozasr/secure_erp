@@ -22,7 +22,6 @@ class View:
     @staticmethod
     def display_crm(crm_dict, *len_crm_data):
         if len(crm_dict) > 0:
-            # [5, 20, 30, 25, 35]
             len_id, len_name, len_surname, len_company, len_email = len_crm_data
             line = f"+{'-' * len_id}+{'-' * len_name}+{'-' * len_surname}+{'-' * len_company}+{'-' * len_email}+"
             title_line = f"|{'ID':^{len_id}}|{'Name':^{len_name}}|{'Surname':^{len_surname}}|{'Company':^{len_company}}|{'Email':^{len_email}}|\n"
@@ -38,6 +37,31 @@ class View:
                     else:
                         data_line += f"{customer[key]:^{space[counter]}}|\n"
                     counter += 1
+            print(header + data_line + line)
+
+    @staticmethod
+    def display_hr(hr_dict, *len_hr_data):
+        if len(hr_dict) > 0:
+            len_id, len_name, len_surname, len_birthday, len_department, len_email = len_hr_data
+            line = f"+{'-' * len_id}+{'-' * len_name}+{'-' * len_surname}+{'-' * len_birthday}" \
+                   f"+{'-' * len_department}+{'-' * len_email}+"
+            title_line = f"|{'ID':^{len_id}}|{'Name':^{len_name}}|{'Surname':^{len_surname}}" \
+                         f"|{'Birthday':^{len_birthday}}|{'Department':^{len_department}}" \
+                         f"|{'Email':^{len_email}}|\n"
+            header = line + "\n" + title_line + line + "\n"
+            space = [len_name, len_surname, len_birthday, len_department, len_email, 0]
+            data_line = ""
+            for id_employee, employee in hr_dict.items():
+                if int(id_employee) > 0:
+                    counter = 0
+                    data_line += f"|{id_employee:>{len_id}}|"
+                    for key in employee:
+                        if len(space) - 2 > counter:
+                            data_line += f"{employee[key]:<{space[counter]}}|"
+                        else:
+                            if key != "password_hr":
+                                data_line += f"{employee[key]:^{space[counter]}}|\n"
+                        counter += 1
             print(header + data_line + line)
 
     @staticmethod
@@ -61,5 +85,13 @@ if __name__ == "__main__":
                  '4': {'name_crm': 'Paweł', 'surname_crm': 'Nowak', 'company_crm': 'Somfy Sp. z o.o.',
                        'email_crm': 'pawel@somfy.pl'}}
 
+    dict_hr = {"0": {"name_hr": "admin", "surname_hr": "admin", "birthday_hr": "1970-01-01",
+                     "department_hr": "admin", "email_hr": "admin@secure.erp",
+                     "password_hr": "7c222fb2927d828af22f592134e8932480637c0d"},
+               "1": {"name_hr": "Jan", "surname_hr": "Nowak", "birthday_hr": "1972-05-31",
+                     "department_hr": "HR", "email_hr": "j.nowak@secure.erp",
+                     "password_hr": "7c222fb2927d828af22f592134e8932480637c0d"}
+               }
+
     v = View()
-    v.display_crm(dict_test)
+    v.display_hr(dict_hr, *[6, 20, 30, 10, 20, 35])
