@@ -68,13 +68,25 @@ class ModelJSON:
 
     def min_max_age_hr(self):
         result = min_max_employees_age(self.hr)
-        if result is not None:
+        if len(result) > 0:
             self.write_hr()
         return result
 
     def average_age_hr(self):
         result = average_age_employees(self.hr)
         if result > 0:
+            self.write_hr()
+        return result
+
+    def birthday_within_two_weeks_hr(self):
+        result = birthday_into_two_weeks(self.hr)
+        if len(result) > 0:
+            self.write_hr()
+        return result
+
+    def employees_in_department_hr(self):
+        result = employees_by_department(self.hr)
+        if len(result) > 0:
             self.write_hr()
         return result
 

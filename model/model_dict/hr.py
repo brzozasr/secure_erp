@@ -1,6 +1,6 @@
 from model.model_dict.id_store import *
 from model.model_dict.id_enum import ID
-from datetime import datetime
+from datetime import datetime, timedelta
 
 current_dir = os.path.dirname(os.path.realpath(__file__))
 json_file = os.path.join(current_dir, "hr.json")
@@ -163,6 +163,46 @@ def average_age_employees(hr_dict):
         return sum_age
 
 
+def birthday_into_two_weeks(hr_dict):
+    current_year = datetime.today().year
+    birthday_dict = {}
+    for id_key, value in hr_dict.items():
+        if id_key != "0":
+            for key in value:
+                if key == "birthday_hr":
+                    year, month, day = value['birthday_hr'].split('-')
+                    birthday = datetime(current_year, int(month), int(day))
+                    new_today = datetime(datetime.today().year, datetime.today().month, datetime.today().day)
+                    two_weeks = new_today + timedelta(days=14)
+                    if new_today <= birthday < two_weeks:
+                        birthday_dict.update({id_key: value})
+    if len(birthday_dict) > 0:
+        return birthday_dict
+    else:
+        return {}
+
+
+def employees_by_department(hr_dict):
+    if len(hr_dict) > 1:
+        department_set = set()
+        department_dict = {}
+        for id_key, value in hr_dict.items():
+            if id_key != "0":
+                department_set.add(value['department_hr'])
+
+        for department in department_set:
+            for v in hr_dict.values():
+                print(f"{department} == {v['department_hr']} ")
+                if department in department_dict and department == v['department_hr']:
+                    department_dict[department] += 1
+                elif department == v['department_hr']:
+                    department_dict[department] = 1
+
+        return department_dict
+    else:
+        return {}
+
+
 if __name__ == "__main__":
     test_dict = {"0": {"name_hr": "admin", "surname_hr": "admin", "birthday_hr": "1970-01-01", "department_hr": "admin",
                        "email_hr": "admin@secure.erp", "password_hr": "7c222fb2927d828af22f592134e8932480637c0d"},
@@ -186,8 +226,14 @@ if __name__ == "__main__":
                        "password_hr": "7c222fb2927d828af22f592134e8932480637c0d"},
                  "10": {"name_hr": "Laura", "surname_hr": "Brzoza", "birthday_hr": "1989-05-10",
                         "department_hr": "Accountant", "email_hr": "l.brzoza@secure.erp",
+                        "password_hr": "7c222fb2927d828af22f592134e8932480637c0d"},
+                 "11": {"name_hr": "Mateusz", "surname_hr": "Morgan", "birthday_hr": "1989-08-22",
+                        "department_hr": "Accountant", "email_hr": "m.morgan@secure.erp",
+                        "password_hr": "7c222fb2927d828af22f592134e8932480637c0d"},
+                 "12": {"name_hr": "Janusz", "surname_hr": "Biznesu", "birthday_hr": "1989-09-04",
+                        "department_hr": "Accountant", "email_hr": "j.biznesu@secure.erp",
                         "password_hr": "7c222fb2927d828af22f592134e8932480637c0d"}}
 
     test_dict1 = {}
 
-    print(average_age_employees(test_dict1))
+    print(employees_by_department(test_dict))

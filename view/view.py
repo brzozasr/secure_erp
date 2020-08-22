@@ -71,6 +71,16 @@ class View:
         print(line + "\n" + content + "\n" + line)
 
     @staticmethod
+    def display_employees_by_department_hr(result_dict, len_department):
+        line = f"+{'-' * len_department}+{'-' * 14}+"
+        title = f"|{'Department':^{len_department}}|{'No employees':^14}|"
+        header = line + "\n" + title + "\n" + line + "\n"
+        content = ""
+        for key, value in result_dict.items():
+            content += f"|{key:<{len_department}}|{value:>14}|\n"
+        print(header + content + line)
+
+    @staticmethod
     def clear_console():
         """Function clears the console."""
         if os.name in ('nt', 'dos'):

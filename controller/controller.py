@@ -329,6 +329,9 @@ class Controller:
             print("(5) Show all employees")
             print("(6) Names of the youngest and the oldest employees")
             print("(7) The average age of employees")
+            print("(8) Employees having birthdays within the two weeks")
+            print("(9) The number of employees per department")
+            print("(10) Go menu up")
             hr_action = input("Select action: ")
 
             if hr_action == "exit":
@@ -355,6 +358,15 @@ class Controller:
                 elif int(hr_action) == 7:
                     self.view.clear_console()
                     self.display_average_age_hr()
+                elif int(hr_action) == 8:
+                    self.view.clear_console()
+                    self.display_birthday_hr()
+                elif int(hr_action) == 9:
+                    self.view.clear_console()
+                    self.display_employees_in_department_hr()
+                elif int(hr_action) == 10:
+                    self.view.clear_console()
+                    break
             else:
                 self.view.clear_console()
                 self.view.error_message = "Invalid a HR module number!!!"
@@ -629,7 +641,7 @@ class Controller:
                 break
 
     def display_all_hr(self):
-        if len(self.model.hr) > 0:
+        if len(self.model.hr) > 1:
             self.view.clear_console()
             new_len = self.len_max_hr()[0:len(self.len_max_hr()) - 1]
             self.view.display_hr(self.model.hr, *new_len)
@@ -653,16 +665,39 @@ class Controller:
     def display_min_max_age_hr(self):
         if len(self.model.hr) > 0:
             self.view.clear_console()
-            new_len = self.len_max_hr()[0:len(self.len_max_hr()) - 1]
-            self.view.display_hr(self.model.min_max_age_hr(), *new_len)
-        else:
-            self.view.error_message = "There is no data to display."
-            self.view.print_message()
+            if min_max := self.model.min_max_age_hr():
+                new_len = self.len_max_hr()[0:len(self.len_max_hr()) - 1]
+                self.view.display_hr(min_max, *new_len)
+            else:
+                self.view.error_message = "There is no data to display."
+                self.view.print_message()
 
     def display_average_age_hr(self):
         if len(self.model.hr) > 0:
             self.view.clear_console()
             self.view.display_aver_age_hr(self.model.average_age_hr())
+        else:
+            self.view.error_message = "There is no data to display."
+            self.view.print_message()
+
+    def display_birthday_hr(self):
+        if len(self.model.hr) > 1:
+            self.view.clear_console()
+            if birthday := self.model.birthday_within_two_weeks_hr():
+                new_len = self.len_max_hr()[0:len(self.len_max_hr()) - 1]
+                self.view.display_hr(birthday, *new_len)
+            else:
+                self.view.error_message = "No one has a birthday in the next two weeks."
+                self.view.print_message()
+        else:
+            self.view.error_message = "There is no data to display."
+            self.view.print_message()
+
+    def display_employees_in_department_hr(self):
+        if len(self.model.hr) > 1:
+            self.view.clear_console()
+            if employees := self.model.employees_in_department_hr():
+                self.view.display_employees_by_department_hr(employees, Controller.len_hr['len_department_hr'][1])
         else:
             self.view.error_message = "There is no data to display."
             self.view.print_message()
@@ -705,7 +740,7 @@ class Controller:
     def _is_hr_correct(module_no):
         try:
             num = int(module_no)
-            if num < 1 or num > 7:
+            if num < 1 or num > 10:
                 return False
         except ValueError:
             return False
