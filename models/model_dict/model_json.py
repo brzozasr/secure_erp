@@ -1,5 +1,5 @@
-from model.model_dict.crm import *
-from model.model_dict.hr import *
+from models.model_dict.crm import *
+from models.model_dict.hr import *
 
 
 class ModelJSON:

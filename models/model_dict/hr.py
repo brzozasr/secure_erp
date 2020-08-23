@@ -1,5 +1,5 @@
-from model.model_dict.id_store import *
-from model.model_dict.id_enum import ID
+from models.model_dict.id_store import *
+from models.model_dict.id_enum import ID
 from datetime import datetime, timedelta
 
 current_dir = os.path.dirname(os.path.realpath(__file__))
