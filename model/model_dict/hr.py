@@ -192,7 +192,6 @@ def employees_by_department(hr_dict):
 
         for department in department_set:
             for v in hr_dict.values():
-                print(f"{department} == {v['department_hr']} ")
                 if department in department_dict and department == v['department_hr']:
                     department_dict[department] += 1
                 elif department == v['department_hr']:
