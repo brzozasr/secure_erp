@@ -77,7 +77,7 @@ def insert_crm(crm_dict, *crm_value):
                 crm_dict[id_crm][k] = v
             return True
     else:
-        print('\033[31m', "Missing argument(s)! There are 4 arguments are required!", '\033[0m')
+        print('\033[31m', "Missing argument(s)! 4 arguments are required!", '\033[0m')
         return False
 
 
@@ -107,7 +107,7 @@ def update_crm(crm_dict, *crm_value):
                 print('\033[31m', f"There is no such key \"{id_crm}\" in the database!", '\033[0m')
                 return False
     else:
-        print('\033[31m', "Missing argument(s)! There are 5 arguments is required!", '\033[0m')
+        print('\033[31m', "Missing argument(s)! 5 arguments are required!", '\033[0m')
         return False
 
 
