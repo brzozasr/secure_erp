@@ -7,13 +7,6 @@ from views.view import *
 
 
 class Controller:
-    len_hr = {"len_id_hr": (1, 6),
-              "len_name_hr": (2, 20),
-              "len_surname_hr": (2, 30),
-              "len_birthday_hr": (10, 10),
-              "len_department_hr": (2, 20),
-              "len_email_hr": (6, 35),
-              "len_password_hr": (8, 40)}
 
     is_running = True
 
@@ -130,25 +123,25 @@ class Controller:
                     display_update_hr(self.model, self.view)
                 elif int(hr_action) == 3:
                     self.view.clear_console()
-                    self.display_delete_hr()
+                    display_delete_hr(self.model, self.view)
                 elif int(hr_action) == 4:
                     self.view.clear_console()
-                    self.display_select_hr()
+                    display_select_hr(self.model, self.view)
                 elif int(hr_action) == 5:
                     self.view.clear_console()
-                    self.display_all_hr()
+                    display_all_hr(self.model, self.view)
                 elif int(hr_action) == 6:
                     self.view.clear_console()
-                    self.display_min_max_age_hr()
+                    display_min_max_age_hr(self.model, self.view)
                 elif int(hr_action) == 7:
                     self.view.clear_console()
-                    self.display_average_age_hr()
+                    display_average_age_hr(self.model, self.view)
                 elif int(hr_action) == 8:
                     self.view.clear_console()
-                    self.display_birthday_hr()
+                    display_birthday_hr(self.model, self.view)
                 elif int(hr_action) == 9:
                     self.view.clear_console()
-                    self.display_employees_in_department_hr()
+                    display_employees_in_department_hr(self.model, self.view)
                 elif int(hr_action) == 10:
                     self.view.clear_console()
                     break
@@ -156,90 +149,6 @@ class Controller:
                 self.view.clear_console()
                 self.view.error_message = "Invalid a HR module number!!!"
                 self.view.print_message()
-
-    def display_delete_hr(self):
-        is_working = True
-        while is_working:
-            print("\033[36mEntering employee's ID to delete or write \"exit\" to go menu up:\033[0m")
-            id_del = input("Entering employee ID: ")
-            if self.model.delete_hr(id_del):
-                is_working = False
-                self.view.clear_console()
-                new_len = self.len_max_hr()[0:len(self.len_max_hr()) - 1]
-                self.view.display_hr(self.model.hr, *new_len)
-                self.view.error_message = f"The employee with ID \"{id_del}\" has been deleted."
-                self.view.print_message()
-            else:
-                break
-
-    def display_all_hr(self):
-        if len(self.model.hr) > 1:
-            self.view.clear_console()
-            new_len = self.len_max_hr()[0:len(self.len_max_hr()) - 1]
-            self.view.display_hr(self.model.hr, *new_len)
-        else:
-            self.view.error_message = "There is no data to display."
-            self.view.print_message()
-
-    def display_select_hr(self):
-        is_working = True
-        while is_working:
-            print("\033[36mEntering employee ID to display or write \"exit\" to go menu up:\033[0m")
-            id_select = input("Entering employee ID: ")
-            if selected := self.model.select_hr(id_select):
-                is_working = False
-                self.view.clear_console()
-                new_len = self.len_max_hr()[0:len(self.len_max_hr()) - 1]
-                self.view.display_hr(selected, *new_len)
-            else:
-                break
-
-    def display_min_max_age_hr(self):
-        if len(self.model.hr) > 0:
-            self.view.clear_console()
-            if min_max := self.model.min_max_age_hr():
-                new_len = self.len_max_hr()[0:len(self.len_max_hr()) - 1]
-                self.view.display_hr(min_max, *new_len)
-            else:
-                self.view.error_message = "There is no data to display."
-                self.view.print_message()
-
-    def display_average_age_hr(self):
-        if len(self.model.hr) > 0:
-            self.view.clear_console()
-            self.view.display_aver_age_hr(self.model.average_age_hr())
-        else:
-            self.view.error_message = "There is no data to display."
-            self.view.print_message()
-
-    def display_birthday_hr(self):
-        if len(self.model.hr) > 1:
-            self.view.clear_console()
-            if birthday := self.model.birthday_within_two_weeks_hr():
-                new_len = self.len_max_hr()[0:len(self.len_max_hr()) - 1]
-                self.view.display_hr(birthday, *new_len)
-            else:
-                self.view.error_message = "No one has a birthday in the next two weeks."
-                self.view.print_message()
-        else:
-            self.view.error_message = "There is no data to display."
-            self.view.print_message()
-
-    def display_employees_in_department_hr(self):
-        if len(self.model.hr) > 1:
-            self.view.clear_console()
-            if employees := self.model.employees_in_department_hr():
-                self.view.display_employees_by_department_hr(employees, Controller.len_hr['len_department_hr'][1])
-        else:
-            self.view.error_message = "There is no data to display."
-            self.view.print_message()
-
-    @classmethod
-    def len_max_hr(cls):
-        len_max_list = []
-        for key, value in cls.len_hr.items():
-            len_max_list.append(cls.len_hr[key][1])
-        return len_max_list
 
     @staticmethod
     def _is_module_correct(module_no):

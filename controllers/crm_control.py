@@ -236,5 +236,5 @@ def _is_len_correct(length, min_length, max_length):
 def _len_max_crm():
     len_max_list = []
     for key, value in len_crm.items():
-        len_max_list.append(len_crm[key][1])
+        len_max_list.append(len_crm[key][len_max])
     return len_max_list

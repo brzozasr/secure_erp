@@ -270,6 +270,90 @@ def display_update_hr(model, view):
                 view.print_message()
 
 
+def display_delete_hr(model, view):
+    is_working = True
+    while is_working:
+        print("\033[36mEntering employee's ID to delete or write \"exit\" to go menu up:\033[0m")
+        id_del = input("Entering employee ID: ")
+        if model.delete_hr(id_del):
+            is_working = False
+            view.clear_console()
+            new_len = _len_max_hr()[0:len(_len_max_hr()) - 1]
+            view.display_hr(model.hr, *new_len)
+            view.error_message = f"The employee with ID \"{id_del}\" has been deleted."
+            view.print_message()
+        else:
+            break
+
+
+def display_all_hr(model, view):
+    if len(model.hr) > 1:
+        view.clear_console()
+        new_len = _len_max_hr()[0:len(_len_max_hr()) - 1]
+        view.display_hr(model.hr, *new_len)
+    else:
+        view.error_message = "There is no data to display."
+        view.print_message()
+
+
+def display_select_hr(model, view):
+    is_working = True
+    while is_working:
+        print("\033[36mEntering employee ID to display or write \"exit\" to go menu up:\033[0m")
+        id_select = input("Entering employee ID: ")
+        if selected := model.select_hr(id_select):
+            is_working = False
+            view.clear_console()
+            new_len = _len_max_hr()[0:len(_len_max_hr()) - 1]
+            view.display_hr(selected, *new_len)
+        else:
+            break
+
+
+def display_min_max_age_hr(model, view):
+    if len(model.hr) > 0:
+        view.clear_console()
+        if min_max := model.min_max_age_hr():
+            new_len = _len_max_hr()[0:len(_len_max_hr()) - 1]
+            view.display_hr(min_max, *new_len)
+        else:
+            view.error_message = "There is no data to display."
+            view.print_message()
+
+
+def display_average_age_hr(model, view):
+    if len(model.hr) > 0:
+        view.clear_console()
+        view.display_aver_age_hr(model.average_age_hr())
+    else:
+        view.error_message = "There is no data to display."
+        view.print_message()
+
+
+def display_birthday_hr(model, view):
+    if len(model.hr) > 1:
+        view.clear_console()
+        if birthday := model.birthday_within_two_weeks_hr():
+            new_len = _len_max_hr()[0:len(_len_max_hr()) - 1]
+            view.display_hr(birthday, *new_len)
+        else:
+            view.error_message = "No one has a birthday in the next two weeks."
+            view.print_message()
+    else:
+        view.error_message = "There is no data to display."
+        view.print_message()
+
+
+def display_employees_in_department_hr(model, view):
+    if len(model.hr) > 1:
+        view.clear_console()
+        if employees := model.employees_in_department_hr():
+            view.display_employees_by_department_hr(employees, len_hr['len_department_hr'][len_max])
+    else:
+        view.error_message = "There is no data to display."
+        view.print_message()
+
+
 def _is_len_correct(length, min_length, max_length):
     if min_length <= length <= max_length:
         return True
@@ -280,7 +364,7 @@ def _is_len_correct(length, min_length, max_length):
 def _len_max_hr():
     len_max_list = []
     for key, value in len_hr.items():
-        len_max_list.append(len_hr[key][1])
+        len_max_list.append(len_hr[key][len_max])
     return len_max_list
 
 
