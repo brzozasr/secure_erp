@@ -13,13 +13,6 @@ def _is_unique(crm_dict, unique_key, email):
     return True
 
 
-def _is_crm_len_correct(length, min_length, max_length):
-    if min_length <= length <= max_length:
-        return True
-    else:
-        return False
-
-
 def write_crm_to_file(crm_dict):
     with open(json_file, "w") as write_file:
         json.dump(crm_dict, write_file, indent=4)

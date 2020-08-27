@@ -1,11 +1,13 @@
 from models.model_dict.crm import *
 from models.model_dict.hr import *
+from models.model_dict.products import *
 
 
 class ModelJSON:
     def __init__(self):
         self.crm = set_crm_from_file()
         self.hr = set_hr_from_file()
+        self.products = set_products_from_file()
 
     # CRM MODEL
     def delete_crm(self, id_crm):
@@ -92,6 +94,34 @@ class ModelJSON:
 
     def write_hr(self):
         write_hr_to_file(self.hr)
+
+    # PRODUCTS MODEL
+    def delete_product(self, id_prod):
+        result = delete_product(id_prod, self.products)
+        if result:
+            self.write_products()
+        return result
+
+    def select_product(self, id_prod):
+        result = select_product(id_prod, self.products)
+        if result is not None:
+            self.write_products()
+        return result
+
+    def insert_product(self, *prod_value):
+        result = insert_product(self.products, *prod_value)
+        if result:
+            self.write_products()
+        return result
+
+    def update_product(self, *prod_value):
+        result = update_product(self.products, *prod_value)
+        if result:
+            self.write_products()
+        return result
+
+    def write_products(self):
+        write_products_to_file(self.products)
 
 
 if __name__ == "__main__":

@@ -24,7 +24,8 @@ class View:
         if len(crm_dict) > 0:
             len_id, len_name, len_surname, len_company, len_email = len_crm_data
             line = f"+{'-' * len_id}+{'-' * len_name}+{'-' * len_surname}+{'-' * len_company}+{'-' * len_email}+"
-            title_line = f"|{'ID':^{len_id}}|{'Name':^{len_name}}|{'Surname':^{len_surname}}|{'Company':^{len_company}}|{'Email':^{len_email}}|\n"
+            title_line = f"|{'ID':^{len_id}}|{'Name':^{len_name}}|{'Surname':^{len_surname}}|" \
+                         f"{'Company':^{len_company}}|{'Email':^{len_email}}|\n"
             header = line + "\n" + title_line + line + "\n"
             space = [len_name, len_surname, len_company, len_email]
             data_line = ""
@@ -62,6 +63,29 @@ class View:
                             if key != "password_hr":
                                 data_line += f"{employee[key]:^{space[counter]}}|\n"
                         counter += 1
+            print(header + data_line + line)
+
+    @staticmethod
+    def display_products(products_dict, *len_prod_data):
+        if len(products_dict) > 0:
+            len_id, len_name, len_price, len_quantity = len_prod_data
+            line = f"+{'-' * len_id}+{'-' * len_name}+{'-' * len_price}+{'-' * len_quantity}+"
+            title_line = f"|{'ID':^{len_id}}|{'Product':^{len_name}}|{'Price (zł)':^{len_price}}|" \
+                         f"{'Quantity':^{len_quantity}}|\n"
+            header = line + "\n" + title_line + line + "\n"
+            space = [len_name, len_price, len_quantity]
+            data_line = ""
+            for id_product, product in products_dict.items():
+                counter = 0
+                data_line += f"|{id_product:>{len_id}}|"
+                for key in product:
+                    if key == 'name_prod':
+                        data_line += f"{product[key]:<{space[counter]}}|"
+                    elif key == 'price_prod':
+                        data_line += f"{product[key]:>{space[counter]}}|"
+                    elif key == 'quantity_prod':
+                        data_line += f"{product[key]:>{space[counter]}}|\n"
+                    counter += 1
             print(header + data_line + line)
 
     @staticmethod

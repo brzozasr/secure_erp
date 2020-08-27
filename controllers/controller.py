@@ -2,6 +2,7 @@ from getpass import getpass
 
 from controllers.crm_control import *
 from controllers.hr_control import *
+from controllers.prod_control import *
 from models.model_dict.model_json import *
 from views.view import *
 
@@ -51,7 +52,8 @@ class Controller:
                     self.view.clear_console()
                     self.display_module_crm()
                 elif int(module) == 2:
-                    pass
+                    self.view.clear_console()
+                    self.display_module_sale()
                 elif int(module) == 3:
                     self.view.clear_console()
                     self.display_module_hr()
@@ -150,6 +152,59 @@ class Controller:
                 self.view.error_message = "Invalid a HR module number!!!"
                 self.view.print_message()
 
+    def display_module_sale(self):
+        while Controller.is_running:
+            print("\033[36mThe SALE Module, to terminate write \"exit\":\033[0m")
+            print("(1) Insert the product")
+            print("(2) Update the product")
+            print("(3) Delete the product")
+            print("(4) Select the product by ID")
+            print("(5) Show all products")
+            print("(6) Names of the youngest and the oldest employees")  # TODO chang
+            print("(7) The average age of employees")  # TODO chang
+            print("(8) Employees having birthdays within the two weeks")  # TODO chang
+            print("(9) The number of employees per department")  # TODO chang
+            print("(10) Go menu up")  # TODO chang
+            sale_action = input("Select action: ")
+
+            if sale_action == "exit":
+                Controller.is_running = False
+            elif Controller._is_sale_correct(sale_action):
+                if int(sale_action) == 1:
+                    self.view.clear_console()
+                    display_insert_product(self.model, self.view)
+                elif int(sale_action) == 2:
+                    self.view.clear_console()
+                    # display_update_hr(self.model, self.view)
+                elif int(sale_action) == 3:
+                    self.view.clear_console()
+                    # display_delete_hr(self.model, self.view)
+                elif int(sale_action) == 4:
+                    self.view.clear_console()
+                    # display_select_hr(self.model, self.view)
+                elif int(sale_action) == 5:
+                    self.view.clear_console()
+                    display_all_products(self.model, self.view)
+                elif int(sale_action) == 6:
+                    self.view.clear_console()
+                    # display_min_max_age_hr(self.model, self.view)
+                elif int(sale_action) == 7:
+                    self.view.clear_console()
+                    # display_average_age_hr(self.model, self.view)
+                elif int(sale_action) == 8:
+                    self.view.clear_console()
+                    # display_birthday_hr(self.model, self.view)
+                elif int(sale_action) == 9:
+                    self.view.clear_console()
+                    # display_employees_in_department_hr(self.model, self.view)
+                elif int(sale_action) == 10:
+                    self.view.clear_console()
+                    break
+            else:
+                self.view.clear_console()
+                self.view.error_message = "Invalid a SALE module number!!!"
+                self.view.print_message()
+
     @staticmethod
     def _is_module_correct(module_no):
         try:
@@ -180,23 +235,15 @@ class Controller:
             return False
         return True
 
-    # TODO delete
     @staticmethod
-    def _is_len_correct(length, min_length, max_length):
-        if min_length <= length <= max_length:
-            return True
-        else:
-            return False
-
-    # TODO delete
-    @staticmethod
-    def _is_date_correct(date_string):
-        date_format = '%Y-%m-%d'
+    def _is_sale_correct(module_no):
         try:
-            datetime.strptime(date_string, date_format)
-            return True
+            num = int(module_no)
+            if num < 1 or num > 10:  # TODO change
+                return False
         except ValueError:
             return False
+        return True
 
 
 if __name__ == "__main__":
