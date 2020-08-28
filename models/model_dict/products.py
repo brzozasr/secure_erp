@@ -55,8 +55,8 @@ def select_product(id_prod, products_dict):
 def insert_product(products_dict, *prod_value):
     """Required arguments for function:
     - "Product's name":    string,
-    - "Price":             string,
-    - "Quantity":          string."""
+    - "Price":             float,
+    - "Quantity":          integer."""
     key_list = ["name_prod", "price_prod", "quantity_prod"]
     if len(prod_value) == 3:
         product, price, quantity = prod_value
@@ -78,8 +78,8 @@ def update_product(products_dict, *prod_value):
     """Required arguments for function:
     - "Id":                string,
     - "Product's name":    string,
-    - "Price":             string,
-    - "Quantity":          string."""
+    - "Price":             float,
+    - "Quantity":          integer."""
     key_list = ["name_prod", "price_prod", "quantity_prod"]
     if len(prod_value) == 4:
         id_prod, product, price, quantity = prod_value
