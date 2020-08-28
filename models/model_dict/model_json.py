@@ -1,6 +1,7 @@
 from models.model_dict.crm import *
 from models.model_dict.hr import *
 from models.model_dict.products import *
+from models.model_dict.sale import *
 
 
 class ModelJSON:
@@ -8,6 +9,7 @@ class ModelJSON:
         self.crm = set_crm_from_file()
         self.hr = set_hr_from_file()
         self.products = set_products_from_file()
+        self.sale = set_sale_from_file()
 
     # CRM MODEL
     def delete_crm(self, id_crm):
@@ -122,6 +124,22 @@ class ModelJSON:
 
     def write_products(self):
         write_products_to_file(self.products)
+
+    # SALE MODEL
+    def delete_sale(self, id_sale):
+        result = delete_sale(id_sale, self.sale)
+        if result:
+            self.write_sale()
+        return result
+
+    def select_sale(self, id_sale):
+        result = select_sale(id_sale, self.sale)
+        if result is not None:
+            self.write_sale()
+        return result
+
+    def write_sale(self):
+        write_sale_to_file(self.sale)
 
 
 if __name__ == "__main__":

@@ -160,7 +160,7 @@ class Controller:
             print("(3) Delete the product")
             print("(4) Select the product by ID")
             print("(5) Show all products")
-            print("(6) Names of the youngest and the oldest employees")  # TODO chang
+            print("(6) Insert the sale")
             print("(7) The average age of employees")  # TODO chang
             print("(8) Employees having birthdays within the two weeks")  # TODO chang
             print("(9) The number of employees per department")  # TODO chang
