@@ -148,13 +148,29 @@ class View:
     @staticmethod
     def display_products_help(prod_dict):
         if len(prod_dict) > 0:
-            clients_list = ""
+            prod_list = ""
             for key_prod, value_prod in prod_dict.items():
-                clients_list += f"({key_prod}) "
+                prod_list += f"({key_prod}) "
                 for key, value in value_prod.items():
                     if key == 'name_prod':
-                        clients_list += f"{value_prod[key]}\n"
-            print(f"\033[35m{clients_list}\033[0m", end='')
+                        prod_list += f"{value_prod[key]}\n"
+            print(f"\033[35m{prod_list}\033[0m", end='')
+
+    @staticmethod
+    def display_sale_help(sale_dict, crm_dict, prod_dict):
+        if len(sale_dict) > 0:
+            sale_list = ""
+            for key_sale, value_sale in sale_dict.items():
+                sale_list += f"({key_sale}) "
+                for key, value in value_sale.items():
+                    if key == 'id_crm_sale':
+                        sale_list += f"{crm_dict[value]['name_crm']} {crm_dict[value]['surname_crm']}, " \
+                                     f"{crm_dict[value]['company_crm']} "
+                    elif key == 'id_prod_sale':
+                        sale_list += f"- {prod_dict[value]['name_prod']} "
+                    elif key == 'quantity_sale':
+                        sale_list += f"- {sale_dict[key_sale]['quantity_sale']} pcs\n"
+            print(f"\033[35m{sale_list}\033[0m", end='')
 
     @staticmethod
     def clear_console():

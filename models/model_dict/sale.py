@@ -83,7 +83,11 @@ def update_sale(crm_dict, products_dict, sale_dict, *sale_value):
     key_list = ["id_crm_sale", "id_prod_sale", "quantity_sale", "date_sale"]
     if len(sale_value) == 5:
         id_sale, id_crm, id_prod, quantity_sale, date_sale = sale_value
-        tmp_quantity = sale_dict[str(id_sale)]['quantity_sale'] + products_dict[id_prod]['quantity_prod']
+        if id_prod == sale_dict[str(id_sale)]['id_prod_sale']:
+            tmp_quantity = sale_dict[str(id_sale)]['quantity_sale'] + products_dict[id_prod]['quantity_prod']
+        else:
+            tmp_quantity = products_dict[id_prod]['quantity_prod']
+
         if not _id_exists(id_sale, sale_dict):
             print('\033[31m', f"The sale's ID \"{id_crm}\" not in the database!", '\033[0m')
             return False
@@ -98,8 +102,13 @@ def update_sale(crm_dict, products_dict, sale_dict, *sale_value):
                   '\033[0m')
             return False
         else:
-            products_dict[id_prod]['quantity_prod'] += sale_dict[str(id_sale)]['quantity_sale']
-            sale_dict[str(id_sale)]['quantity_sale'] = 0
+            if id_prod == sale_dict[str(id_sale)]['id_prod_sale']:
+                products_dict[id_prod]['quantity_prod'] += sale_dict[str(id_sale)]['quantity_sale']
+                sale_dict[str(id_sale)]['quantity_sale'] = 0
+            else:
+                products_dict[sale_dict[str(id_sale)]['id_prod_sale']]['quantity_prod'] += sale_dict[str(id_sale)][
+                    'quantity_sale']
+                sale_dict[str(id_sale)]['quantity_sale'] = 0
             _is_quantity_correct(quantity_sale, id_prod, products_dict)
             for k, v in zip(key_list, sale_value[1:]):
                 sale_dict[str(id_sale)][k] = v

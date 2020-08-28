@@ -192,7 +192,7 @@ class Controller:
                     display_insert_sale(self.model, self.view)
                 elif int(sale_action) == 7:
                     self.view.clear_console()
-                    # display_average_age_hr(self.model, self.view)
+                    display_update_sale(self.model, self.view)
                 elif int(sale_action) == 8:
                     self.view.clear_console()
                     # display_birthday_hr(self.model, self.view)
@@ -200,6 +200,9 @@ class Controller:
                     self.view.clear_console()
                     # display_employees_in_department_hr(self.model, self.view)
                 elif int(sale_action) == 10:
+                    self.view.clear_console()
+                    display_all_sales(self.model, self.view)
+                elif int(sale_action) == 11:
                     self.view.clear_console()
                     break
             else:
