@@ -175,13 +175,13 @@ class Controller:
                     display_insert_product(self.model, self.view)
                 elif int(sale_action) == 2:
                     self.view.clear_console()
-                    # display_update_hr(self.model, self.view)
+                    display_update_product(self.model, self.view)
                 elif int(sale_action) == 3:
                     self.view.clear_console()
-                    # display_delete_hr(self.model, self.view)
+                    display_delete_product(self.model, self.view)
                 elif int(sale_action) == 4:
                     self.view.clear_console()
-                    # display_select_hr(self.model, self.view)
+                    display_select_product(self.model, self.view)
                 elif int(sale_action) == 5:
                     self.view.clear_console()
                     display_all_products(self.model, self.view)

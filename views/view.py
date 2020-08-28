@@ -82,7 +82,7 @@ class View:
                     if key == 'name_prod':
                         data_line += f"{product[key]:<{space[counter]}}|"
                     elif key == 'price_prod':
-                        data_line += f"{product[key]:>{space[counter]}}|"
+                        data_line += f"{product[key]:>{space[counter]}.2f}|"
                     elif key == 'quantity_prod':
                         data_line += f"{product[key]:>{space[counter]}}|\n"
                     counter += 1
