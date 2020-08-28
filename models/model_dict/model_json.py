@@ -138,6 +138,23 @@ class ModelJSON:
             self.write_sale()
         return result
 
+    def insert_sale(self, *sale_value):
+        result = insert_sale(self.crm, self.products, self.sale, *sale_value)
+        if result:
+            self.write_sale()
+            self.write_products()
+        return result
+
+    def update_sale(self, *sale_value):
+        result = update_sale(self.crm, self.products, self.sale, *sale_value)
+        if result:
+            self.write_sale()
+            self.write_products()
+        return result
+
+    def show_data_sale(self, sale_dict):
+        return select_data_to_show_sale(self.crm, self.products, sale_dict)
+
     def write_sale(self):
         write_sale_to_file(self.sale)
 

@@ -37,7 +37,7 @@ def select_sale(id_sale, sale_dict):
         if id_key == str(id_sale):
             is_key = True
     if is_key:
-        return {str(id_sale): sale_dict[str(id_sale)]}  # TODO
+        return {str(id_sale): sale_dict[str(id_sale)]}
     else:
         print('\033[31m', f"There is no such key \"{id_sale}\" in the database!", '\033[0m')
         return None
@@ -83,35 +83,33 @@ def update_sale(crm_dict, products_dict, sale_dict, *sale_value):
     key_list = ["id_crm_sale", "id_prod_sale", "quantity_sale", "date_sale"]
     if len(sale_value) == 5:
         id_sale, id_crm, id_prod, quantity_sale, date_sale = sale_value
-        if not _id_exists(id_crm, crm_dict):
+        tmp_quantity = sale_dict[str(id_sale)]['quantity_sale'] + products_dict[id_prod]['quantity_prod']
+        if not _id_exists(id_sale, sale_dict):
+            print('\033[31m', f"The sale's ID \"{id_crm}\" not in the database!", '\033[0m')
+            return False
+        elif not _id_exists(id_crm, crm_dict):
             print('\033[31m', f"The client's ID \"{id_crm}\" not in the database!", '\033[0m')
             return False
         elif not _id_exists(id_prod, products_dict):
             print('\033[31m', f"The product's ID \"{id_prod}\" not in the database!", '\033[0m')
             return False
-        elif not _is_quantity_correct(quantity_sale, id_prod, products_dict):
+        elif quantity_sale > tmp_quantity:
             print('\033[31m', "The quantity of product available in the stock is less than you want to sell!",
                   '\033[0m')
             return False
         else:
-            is_key = False
-            for id_key in sale_dict.keys():
-                if id_key == str(id_sale):
-                    is_key = True
-            if is_key:
-                products_dict[id_prod]['quantity_prod'] += sale_dict[str(id_sale)]['quantity_sale']
-                for k, v in zip(key_list, sale_value[1:]):
-                    sale_dict[str(id_sale)][k] = v
-                return True
-            else:
-                print('\033[31m', f"There is no such key \"{id_sale}\" in the database!", '\033[0m')
-                return False
+            products_dict[id_prod]['quantity_prod'] += sale_dict[str(id_sale)]['quantity_sale']
+            sale_dict[str(id_sale)]['quantity_sale'] = 0
+            _is_quantity_correct(quantity_sale, id_prod, products_dict)
+            for k, v in zip(key_list, sale_value[1:]):
+                sale_dict[str(id_sale)][k] = v
+            return True
     else:
         print('\033[31m', "Missing argument(s)! 5 arguments are required!", '\033[0m')
         return False
 
 
-def select_data_sale(crm_dict, products_dict, sale_dict):
+def select_data_to_show_sale(crm_dict, products_dict, sale_dict):
     result_dict = {}
     for key_sale, value_sale in sale_dict.items():
         result_dict[key_sale] = {}
@@ -120,7 +118,7 @@ def select_data_sale(crm_dict, products_dict, sale_dict):
                 result_dict[key_sale][key] = [crm_dict[value]['name_crm'], crm_dict[value]['surname_crm'],
                                               crm_dict[value]['company_crm']]
             elif key == "id_prod_sale":
-                result_dict[key_sale][key] = products_dict[value]['name_prod']
+                result_dict[key_sale][key] = [products_dict[value]['name_prod'], products_dict[value]['price_prod']]
             else:
                 result_dict[key_sale][key] = value
     return result_dict
@@ -165,11 +163,11 @@ if __name__ == "__main__":
     sale_dict1 = {"1": {"id_crm_sale": "6", "id_prod_sale": "2", "quantity_sale": 40, "date_sale": "2020-08-28"},
                   "2": {"id_crm_sale": "8", "id_prod_sale": "1", "quantity_sale": 100, "date_sale": "2020-07-03"}}
 
-    insert_sale(crm_dict1, prod_dict, sale_dict1, "8", "3", 200, "2020-09-01")
-    print(sale_dict1)
-    print(prod_dict)
-    print('-' * 40)
-    update_sale(crm_dict1, prod_dict, sale_dict1, "2", "8", "1", 440, "2020-09-01")
-    print(sale_dict1)
-    print(prod_dict)
-    # print(select_data_sale(crm_dict1, prod_dict, sale_dict1))
+    # insert_sale(crm_dict1, prod_dict, sale_dict1, "8", "3", 200, "2020-09-01")
+    # print(sale_dict1)
+    # print(prod_dict)
+    # print('-' * 40)
+    # update_sale(crm_dict1, prod_dict, sale_dict1, "2", "8", "1", 440, "2020-09-01")
+    # print(sale_dict1)
+    # print(prod_dict)
+    print(select_data_to_show_sale(crm_dict1, prod_dict, sale_dict1))

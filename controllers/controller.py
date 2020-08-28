@@ -3,6 +3,7 @@ from getpass import getpass
 from controllers.crm_control import *
 from controllers.hr_control import *
 from controllers.prod_control import *
+from controllers.sale_control import *
 from models.model_dict.model_json import *
 from views.view import *
 
@@ -161,10 +162,11 @@ class Controller:
             print("(4) Select the product by ID")
             print("(5) Show all products")
             print("(6) Insert the sale")
-            print("(7) The average age of employees")  # TODO chang
-            print("(8) Employees having birthdays within the two weeks")  # TODO chang
-            print("(9) The number of employees per department")  # TODO chang
-            print("(10) Go menu up")  # TODO chang
+            print("(7) Update the sale")
+            print("(8) Delete the sale")
+            print("(9) Select the sale by ID")
+            print("(10) Show all sale")
+            print("(11) Go menu up")
             sale_action = input("Select action: ")
 
             if sale_action == "exit":
@@ -187,7 +189,7 @@ class Controller:
                     display_all_products(self.model, self.view)
                 elif int(sale_action) == 6:
                     self.view.clear_console()
-                    # display_min_max_age_hr(self.model, self.view)
+                    display_insert_sale(self.model, self.view)
                 elif int(sale_action) == 7:
                     self.view.clear_console()
                     # display_average_age_hr(self.model, self.view)
@@ -239,7 +241,7 @@ class Controller:
     def _is_sale_correct(module_no):
         try:
             num = int(module_no)
-            if num < 1 or num > 10:  # TODO change
+            if num < 1 or num > 11:  # TODO change
                 return False
         except ValueError:
             return False
