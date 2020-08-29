@@ -18,12 +18,10 @@ def set_sale_from_file():
         return {}
 
 
-def delete_sale(id_sale, sale_dict):
-    is_key = False
-    for id_key in sale_dict.keys():
-        if id_key == str(id_sale):
-            is_key = True
-    if is_key:
+def delete_sale(id_sale, sale_dict, products_dict):
+    if id_sale in sale_dict:
+        products_dict[sale_dict[str(id_sale)]['id_prod_sale']]['quantity_prod'] += sale_dict[str(id_sale)][
+            'quantity_sale']
         del sale_dict[str(id_sale)]
         return True
     else:
@@ -32,15 +30,20 @@ def delete_sale(id_sale, sale_dict):
 
 
 def select_sale(id_sale, sale_dict):
-    is_key = False
-    for id_key in sale_dict.keys():
-        if id_key == str(id_sale):
-            is_key = True
-    if is_key:
+    if id_sale in sale_dict:
         return {str(id_sale): sale_dict[str(id_sale)]}
     else:
         print('\033[31m', f"There is no such key \"{id_sale}\" in the database!", '\033[0m')
         return None
+    # is_key = False
+    # for id_key in sale_dict.keys():
+    #     if id_key == str(id_sale):
+    #         is_key = True
+    # if is_key:
+    #     return {str(id_sale): sale_dict[str(id_sale)]}
+    # else:
+    #     print('\033[31m', f"There is no such key \"{id_sale}\" in the database!", '\033[0m')
+    #     return None
 
 
 def insert_sale(crm_dict, products_dict, sale_dict, *sale_value):

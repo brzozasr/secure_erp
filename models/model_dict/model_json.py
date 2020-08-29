@@ -13,7 +13,7 @@ class ModelJSON:
 
     # CRM MODEL
     def delete_crm(self, id_crm):
-        result = delete_crm(id_crm, self.crm)
+        result = delete_crm(id_crm, self.crm, self.sale)
         if result:
             self.write_crm()
         return result
@@ -99,7 +99,7 @@ class ModelJSON:
 
     # PRODUCTS MODEL
     def delete_product(self, id_prod):
-        result = delete_product(id_prod, self.products)
+        result = delete_product(id_prod, self.products, self.sale)
         if result:
             self.write_products()
         return result
@@ -127,9 +127,10 @@ class ModelJSON:
 
     # SALE MODEL
     def delete_sale(self, id_sale):
-        result = delete_sale(id_sale, self.sale)
+        result = delete_sale(id_sale, self.sale, self.products)
         if result:
             self.write_sale()
+            self.write_products()
         return result
 
     def select_sale(self, id_sale):

@@ -26,12 +26,11 @@ def set_crm_from_file():
         return {}
 
 
-def delete_crm(id_crm, crm_dict):
-    is_key = False
-    for id_key in crm_dict.keys():
-        if id_key == str(id_crm):
-            is_key = True
-    if is_key:
+def delete_crm(id_crm, crm_dict, sale_dict):
+    if _is_id_crm_in_sale(id_crm, sale_dict):
+        print('\033[31m', f"The client with ID {id_crm} cannot be deleted because it is used in sale!", '\033[0m')
+        return False
+    elif id_crm in crm_dict:
         del crm_dict[str(id_crm)]
         return True
     else:
@@ -40,11 +39,7 @@ def delete_crm(id_crm, crm_dict):
 
 
 def select_crm(id_crm, crm_dict):
-    is_key = False
-    for id_key in crm_dict.keys():
-        if id_key == str(id_crm):
-            is_key = True
-    if is_key:
+    if id_crm in crm_dict:
         return {str(id_crm): crm_dict[str(id_crm)]}
     else:
         print('\033[31m', f"There is no such key \"{id_crm}\" in the database!", '\033[0m')
@@ -104,11 +99,18 @@ def update_crm(crm_dict, *crm_value):
         return False
 
 
+def _is_id_crm_in_sale(id_crm, sale_dict):
+    for value_sale in sale_dict.values():
+        if value_sale['id_crm_sale'] == id_crm:
+            return True
+    return False
+
+
 if __name__ == "__main__":
     insert_crm("Jan", "Kowalski", "Somfy Sp. z o.o.", "dagmara@somfy.pl")
-    insert_crm("Paweł", "Nowak", "Somfy Sp. z o.o.", "pawel@somfy.pl")
+    # insert_crm("Paweł", "Nowak", "Somfy Sp. z o.o.", "pawel@somfy.pl")
     # delete_crm(2)
     # print(select_crm(5))
-    update_crm(1, "Sławomir", "Brzozowski", "DG RSZ", "brzozasr@interia.pl")
-    update_crm(2, "Marcin", "Jurek", "DG RSZ - ORK", "m.jurek@gmail.com")
+    # update_crm(1, "Sławomir", "Brzozowski", "DG RSZ", "brzozasr@interia.pl")
+    # update_crm(2, "Marcin", "Jurek", "DG RSZ - ORK", "m.jurek@gmail.com")
     # print(select_all_crm())

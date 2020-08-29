@@ -27,12 +27,11 @@ def set_products_from_file():
         return {}
 
 
-def delete_product(id_prod, products_dict):
-    is_key = False
-    for id_key in products_dict.keys():
-        if id_key == str(id_prod):
-            is_key = True
-    if is_key:
+def delete_product(id_prod, products_dict, sale_dict):
+    if _is_id_prod_in_sale(id_prod, sale_dict):
+        print('\033[31m', f"The product with ID {id_prod} cannot be deleted because it is used in sale!", '\033[0m')
+        return False
+    elif id_prod in products_dict:
         del products_dict[str(id_prod)]
         return True
     else:
@@ -41,11 +40,7 @@ def delete_product(id_prod, products_dict):
 
 
 def select_product(id_prod, products_dict):
-    is_key = False
-    for id_key in products_dict.keys():
-        if id_key == str(id_prod):
-            is_key = True
-    if is_key:
+    if id_prod in products_dict:
         return {str(id_prod): products_dict[str(id_prod)]}
     else:
         print('\033[31m', f"There is no such key \"{id_prod}\" in the database!", '\033[0m')
@@ -101,3 +96,10 @@ def update_product(products_dict, *prod_value):
     else:
         print('\033[31m', "Missing argument(s)! 4 arguments are required!", '\033[0m')
         return False
+
+
+def _is_id_prod_in_sale(id_prod, sale_dict):
+    for value_sale in sale_dict.values():
+        if value_sale['id_prod_sale'] == id_prod:
+            return True
+    return False

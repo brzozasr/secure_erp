@@ -202,6 +202,34 @@ def display_update_sale(model, view):
                 view.print_message()
 
 
+def display_delete_sale(model, view):
+    is_working = True
+    while is_working:
+        print("\033[36mEntering sale's ID to delete or write \"exit\" to go menu up:\033[0m")
+        id_del = input("Entering sale ID: ")
+        if model.delete_sale(id_del):
+            is_working = False
+            view.clear_console()
+            view.display_sale(model.show_data_sale(model.sale), *_len_max_sale())
+            view.error_message = f"The sale with ID \"{id_del}\" has been deleted."
+            view.print_message()
+        else:
+            break
+
+
+def display_select_sale(model, view):
+    is_working = True
+    while is_working:
+        print("\033[36mEntering sale ID to display or write \"exit\" to go menu up:\033[0m")
+        id_select = input("Entering sale ID: ")
+        if selected := model.select_sale(id_select):
+            is_working = False
+            view.clear_console()
+            view.display_sale(model.show_data_sale(selected), *_len_max_sale())
+        else:
+            break
+
+
 def display_all_sales(model, view):
     if len(model.products) > 0:
         view.clear_console()
