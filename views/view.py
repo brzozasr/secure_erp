@@ -173,6 +173,17 @@ class View:
             print(f"\033[35m{sale_list}\033[0m", end='')
 
     @staticmethod
+    def display_product_biggest_revenue(prod_data):
+        if prod_data is not None:
+            prod_name, prod_revenue = prod_data
+            col_first, col_second = (50, 20)
+            line = f'+{"-" * col_first}+{"-" * col_second}+'
+            title_line = f'|{"Product made the biggest revenue":^{col_first}}|{"Revenue":^{col_second}}|\n'
+            header = line + "\n" + title_line + line + "\n"
+            content = f'|{prod_name:<{col_first}}|{prod_revenue:^{col_second}.2f}|\n'
+            print(header + content + line)
+
+    @staticmethod
     def clear_console():
         """Function clears the console."""
         if os.name in ('nt', 'dos'):

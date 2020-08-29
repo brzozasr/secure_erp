@@ -249,6 +249,16 @@ def display_get_transaction_biggest_revenue(model, view):
         view.print_message()
 
 
+def display_get_product_biggest_revenue(model, view):
+    if len(model.sale) > 0:
+        max_product_revenue = model.get_product_biggest_revenue()
+        view.clear_console()
+        view.display_product_biggest_revenue(max_product_revenue)
+    else:
+        view.error_message = "There is no data to display."
+        view.print_message()
+
+
 def _is_len_correct(length, min_length, max_length):
     if min_length <= length <= max_length:
         return True

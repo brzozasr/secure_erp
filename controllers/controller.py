@@ -214,7 +214,7 @@ class Controller:
                     display_get_transaction_biggest_revenue(self.model, self.view)
                 elif int(sale_action) == 12:
                     self.view.clear_console()
-                    # display_all_sales(self.model, self.view)
+                    display_get_product_biggest_revenue(self.model, self.view)
                 elif int(sale_action) == 13:
                     self.view.clear_console()
                     # display_all_sales(self.model, self.view)

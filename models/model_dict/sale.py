@@ -144,8 +144,26 @@ def transaction_biggest_revenue(crm_dict, products_dict, sale_dict):
 def product_biggest_revenue(crm_dict, products_dict, sale_dict):
     full_sale_dict = select_data_to_show_sale(crm_dict, products_dict, sale_dict)
     if len(full_sale_dict) > 0:
-        pass
-    return full_sale_dict
+        products_set = set()
+        for value_sale in full_sale_dict.values():
+            products_set.add(value_sale['id_prod_sale'][0])
+        max_product_revenue = 0
+        product_name = ""
+        for product in products_set:
+            product_revenue = 0
+            for key, value in full_sale_dict.items():
+                if value['id_prod_sale'][0] == product:
+                    revenue = value['id_prod_sale'][1] * value['quantity_sale']
+                    product_revenue += revenue
+            if product_revenue > max_product_revenue:
+                max_product_revenue = product_revenue
+                product_name = product
+        return product_name, max_product_revenue
+    return None
+
+
+def no_transactions_between_given_dates(crm_dict, products_dict, sale_dict):
+    full_sale_dict = select_data_to_show_sale(crm_dict, products_dict, sale_dict)
 
 
 def _is_quantity_correct(quantity_sale, id_prod, products_dict):
@@ -185,7 +203,10 @@ if __name__ == "__main__":
                  "2": {"name_prod": "Mas\u0142o", "price_prod": 8.75, "quantity_prod": 85},
                  "3": {"name_prod": "\u015amietana", "price_prod": 4.25, "quantity_prod": 1200}}
     sale_dict1 = {"1": {"id_crm_sale": "6", "id_prod_sale": "2", "quantity_sale": 40, "date_sale": "2020-08-28"},
-                  "2": {"id_crm_sale": "8", "id_prod_sale": "1", "quantity_sale": 100, "date_sale": "2020-07-03"}}
+                  "2": {"id_crm_sale": "8", "id_prod_sale": "1", "quantity_sale": 45, "date_sale": "2020-07-03"},
+                  "3": {"id_crm_sale": "8", "id_prod_sale": "1", "quantity_sale": 50, "date_sale": "2020-07-04"},
+                  "4": {"id_crm_sale": "6", "id_prod_sale": "2", "quantity_sale": 60, "date_sale": "2020-08-29"},
+                  "5": {"id_crm_sale": "8", "id_prod_sale": "1", "quantity_sale": 99, "date_sale": "2020-07-03"},}
 
     # insert_sale(crm_dict1, prod_dict, sale_dict1, "8", "3", 200, "2020-09-01")
     # print(sale_dict1)
@@ -194,4 +215,5 @@ if __name__ == "__main__":
     # update_sale(crm_dict1, prod_dict, sale_dict1, "2", "8", "1", 440, "2020-09-01")
     # print(sale_dict1)
     # print(prod_dict)
-    print(select_data_to_show_sale(crm_dict1, prod_dict, sale_dict1))
+    print(product_biggest_revenue(crm_dict1, prod_dict, sale_dict1))
+
