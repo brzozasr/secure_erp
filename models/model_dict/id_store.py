@@ -41,9 +41,3 @@ def get_id(id_enum):
     _write_ids_to_file()
     return new_id
 
-
-if __name__ == "__main__":
-    print(get_id("id_crm_store"))
-    print(get_id("id_prod_store"))
-    print(get_id("id_sale_store"))
-    print(get_id("id_hr_store"))

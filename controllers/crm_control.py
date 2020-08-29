@@ -232,7 +232,6 @@ def _is_len_correct(length, min_length, max_length):
         return False
 
 
-# TODO delete
 def _len_max_crm():
     len_max_list = []
     for key, value in len_crm.items():

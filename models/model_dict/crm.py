@@ -105,12 +105,3 @@ def _is_id_crm_in_sale(id_crm, sale_dict):
             return True
     return False
 
-
-if __name__ == "__main__":
-    insert_crm("Jan", "Kowalski", "Somfy Sp. z o.o.", "dagmara@somfy.pl")
-    # insert_crm("Paweł", "Nowak", "Somfy Sp. z o.o.", "pawel@somfy.pl")
-    # delete_crm(2)
-    # print(select_crm(5))
-    # update_crm(1, "Sławomir", "Brzozowski", "DG RSZ", "brzozasr@interia.pl")
-    # update_crm(2, "Marcin", "Jurek", "DG RSZ - ORK", "m.jurek@gmail.com")
-    # print(select_all_crm())

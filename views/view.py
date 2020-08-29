@@ -208,33 +208,3 @@ class View:
             subprocess.call("clear")
         else:
             print("\n" * 120)
-
-
-if __name__ == "__main__":
-    dict_test = {'1': {'name_crm': 'Sławomir', 'surname_crm': 'Brzozowski', 'company_crm': 'DG RSZ',
-                       'email_crm': 'brzozasr@interia.pl'},
-                 '2': {'name_crm': 'Marcin', 'surname_crm': 'Jurek', 'company_crm': 'DG RSZ - ORK',
-                       'email_crm': 'm.jurek@gmail.com'},
-                 '3': {'name_crm': 'Jan', 'surname_crm': 'Kowalski', 'company_crm': 'Somfy Sp. z o.o.',
-                       'email_crm': 'dagmara@somfy.pl'},
-                 '5': {'name_crm': 'Paweł', 'surname_crm': 'Nowak', 'company_crm': 'Somfy Sp. z o.o.',
-                       'email_crm': 'pawel@somfy.pl'}}
-
-    dict_hr = {"0": {"name_hr": "admin", "surname_hr": "admin", "birthday_hr": "1970-01-01",
-                     "department_hr": "admin", "email_hr": "admin@secure.erp",
-                     "password_hr": "7c222fb2927d828af22f592134e8932480637c0d"},
-               "1": {"name_hr": "Jan", "surname_hr": "Nowak", "birthday_hr": "1972-05-31",
-                     "department_hr": "HR", "email_hr": "j.nowak@secure.erp",
-                     "password_hr": "7c222fb2927d828af22f592134e8932480637c0d"}
-               }
-
-    sale_dict1 = {'1': {'id_crm_sale': ['Dagmara', 'Brzozowska', 'Somfy Sp. z o.o.'],
-                        'id_prod_sale': ['Masło', 8.75],
-                        'quantity_sale': 40, 'date_sale': '2020-08-28'},
-                  '2': {'id_crm_sale': ['Magdalena', 'Bałon', 'Dexter'],
-                        'id_prod_sale': ['Chleb razowy', 4.5],
-                        'quantity_sale': 100, 'date_sale': '2020-07-03'}}
-
-    v = View()
-    # v.display_sale(sale_dict1, *[6, 20, 30, 25, 25, 8, 10])
-    v.display_clients_help(dict_test)

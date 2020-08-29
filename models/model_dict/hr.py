@@ -202,38 +202,3 @@ def employees_by_department(hr_dict):
     else:
         return {}
 
-
-if __name__ == "__main__":
-    test_dict = {"0": {"name_hr": "admin", "surname_hr": "admin", "birthday_hr": "1970-01-01", "department_hr": "admin",
-                       "email_hr": "admin@secure.erp", "password_hr": "7c222fb2927d828af22f592134e8932480637c0d"},
-                 "2": {"name_hr": "Stefan", "surname_hr": "Siw\u0105cha", "birthday_hr": "1972-05-31",
-                       "department_hr": "Sale", "email_hr": "s.siwacha@secure.erp",
-                       "password_hr": "7c222fb2927d828af22f592134e8932480637c0d"},
-                 "4": {"name_hr": "Andrzej", "surname_hr": "Weso\u0142owski", "birthday_hr": "2002-10-01",
-                       "department_hr": "Sale", "email_hr": "a.wesolowski@secure.erp",
-                       "password_hr": "a7d579ba76398070eae654c30ff153a4c273272a"},
-                 "5": {"name_hr": "Piotr", "surname_hr": "Chi\u0142\u0142a", "birthday_hr": "2000-12-12",
-                       "department_hr": "HR", "email_hr": "p.chilla@secure.erp",
-                       "password_hr": "7c222fb2927d828af22f592134e8932480637c0d"},
-                 "7": {"name_hr": "Marian", "surname_hr": "Stan", "birthday_hr": "2002-10-01",
-                       "department_hr": "Sale", "email_hr": "m.stan@secure.erp",
-                       "password_hr": "a7d579ba76398070eae654c30ff153a4c273272a"},
-                 "8": {"name_hr": "Wiktor", "surname_hr": "Kotlarz", "birthday_hr": "1990-02-10",
-                       "department_hr": "Accountant", "email_hr": "w.kotlarz@secure.erp",
-                       "password_hr": "7c222fb2927d828af22f592134e8932480637c0d"},
-                 "9": {"name_hr": "Halina", "surname_hr": "Rycerz", "birthday_hr": "1972-05-31",
-                       "department_hr": "Accountant", "email_hr": "h.rycerz@secure.erp",
-                       "password_hr": "7c222fb2927d828af22f592134e8932480637c0d"},
-                 "10": {"name_hr": "Laura", "surname_hr": "Brzoza", "birthday_hr": "1989-05-10",
-                        "department_hr": "Accountant", "email_hr": "l.brzoza@secure.erp",
-                        "password_hr": "7c222fb2927d828af22f592134e8932480637c0d"},
-                 "11": {"name_hr": "Mateusz", "surname_hr": "Morgan", "birthday_hr": "1989-08-22",
-                        "department_hr": "Accountant", "email_hr": "m.morgan@secure.erp",
-                        "password_hr": "7c222fb2927d828af22f592134e8932480637c0d"},
-                 "12": {"name_hr": "Janusz", "surname_hr": "Biznesu", "birthday_hr": "1989-09-04",
-                        "department_hr": "Accountant", "email_hr": "j.biznesu@secure.erp",
-                        "password_hr": "7c222fb2927d828af22f592134e8932480637c0d"}}
-
-    test_dict1 = {}
-
-    print(employees_by_department(test_dict))

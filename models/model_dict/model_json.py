@@ -171,11 +171,3 @@ class ModelJSON:
     def write_sale(self):
         write_sale_to_file(self.sale)
 
-
-if __name__ == "__main__":
-    m = ModelJSON()
-    m.insert_crm("Jan", "Kowalski", "Somfy Sp. z o.o.", "dagmara@somfy.pl")
-    m.insert_crm("Paweł", "Nowak", "Somfy Sp. z o.o.", "pawel@somfy.pl")
-    m.update_crm(1, "Sławomir", "Brzozowski", "DG RSZ", "brzozasr@interia.pl")
-    m.update_crm(2, "Marcin", "Jurek", "DG RSZ - ORK", "m.jurek@gmail.com")
-    # m.delete_crm(2)

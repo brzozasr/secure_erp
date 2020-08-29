@@ -4,12 +4,11 @@ from controllers.crm_control import *
 from controllers.hr_control import *
 from controllers.prod_control import *
 from controllers.sale_control import *
-from models.model_dict.model_json import *
 from views.view import *
+from models.model_dict.model_json import *
 
 
 class Controller:
-
     is_running = True
 
     def __init__(self, model, view):
@@ -268,8 +267,3 @@ class Controller:
         except ValueError:
             return False
         return True
-
-
-if __name__ == "__main__":
-    con = Controller(ModelJSON(), View())
-    con.run_erp()
