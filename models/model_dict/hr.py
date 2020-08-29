@@ -1,6 +1,7 @@
-from model.model_dict.id_store import *
-from model.model_dict.id_enum import ID
 from datetime import datetime, timedelta
+
+from models.model_dict.id_enum import ID
+from models.model_dict.id_store import *
 
 current_dir = os.path.dirname(os.path.realpath(__file__))
 json_file = os.path.join(current_dir, "hr.json")
