@@ -35,15 +35,6 @@ def select_sale(id_sale, sale_dict):
     else:
         print('\033[31m', f"There is no such key \"{id_sale}\" in the database!", '\033[0m')
         return None
-    # is_key = False
-    # for id_key in sale_dict.keys():
-    #     if id_key == str(id_sale):
-    #         is_key = True
-    # if is_key:
-    #     return {str(id_sale): sale_dict[str(id_sale)]}
-    # else:
-    #     print('\033[31m', f"There is no such key \"{id_sale}\" in the database!", '\033[0m')
-    #     return None
 
 
 def insert_sale(crm_dict, products_dict, sale_dict, *sale_value):
@@ -134,6 +125,27 @@ def select_data_to_show_sale(crm_dict, products_dict, sale_dict):
             else:
                 result_dict[key_sale][key] = value
     return result_dict
+
+
+def transaction_biggest_revenue(crm_dict, products_dict, sale_dict):
+    full_sale_dict = select_data_to_show_sale(crm_dict, products_dict, sale_dict)
+    if len(full_sale_dict) > 0:
+        max_revenue = 0
+        key = ""
+        for key_sale, value_sale in full_sale_dict.items():
+            revenue = value_sale['id_prod_sale'][1] * value_sale['quantity_sale']
+            if revenue > max_revenue:
+                max_revenue = revenue
+                key = key_sale
+        return {key: sale_dict[key]}
+    return full_sale_dict
+
+
+def product_biggest_revenue(crm_dict, products_dict, sale_dict):
+    full_sale_dict = select_data_to_show_sale(crm_dict, products_dict, sale_dict)
+    if len(full_sale_dict) > 0:
+        pass
+    return full_sale_dict
 
 
 def _is_quantity_correct(quantity_sale, id_prod, products_dict):

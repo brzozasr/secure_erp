@@ -156,6 +156,9 @@ class ModelJSON:
     def show_data_sale(self, sale_dict):
         return select_data_to_show_sale(self.crm, self.products, sale_dict)
 
+    def get_transaction_biggest_revenue(self):
+        return transaction_biggest_revenue(self.crm, self.products, self.sale)
+
     def write_sale(self):
         write_sale_to_file(self.sale)
 

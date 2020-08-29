@@ -161,12 +161,19 @@ class Controller:
             print("(3) Delete the product")
             print("(4) Select the product by ID")
             print("(5) Show all products")
+            print("-" * 57)
             print("(6) Insert the sale")
             print("(7) Update the sale")
             print("(8) Delete the sale")
             print("(9) Select the sale by ID")
             print("(10) Show all sale")
-            print("(11) Go menu up")
+            print("-" * 57)
+            print("(11) The transaction that made the biggest revenue")
+            print("(12) The product that made the biggest revenue altogether")
+            print("(13) Number of transactions between two dates")
+            print("(14) Sum the price of transactions between two dates")
+            print("-" * 57)
+            print("(15) Go menu up")
             sale_action = input("Select action: ")
 
             if sale_action == "exit":
@@ -203,6 +210,18 @@ class Controller:
                     self.view.clear_console()
                     display_all_sales(self.model, self.view)
                 elif int(sale_action) == 11:
+                    self.view.clear_console()
+                    display_get_transaction_biggest_revenue(self.model, self.view)
+                elif int(sale_action) == 12:
+                    self.view.clear_console()
+                    # display_all_sales(self.model, self.view)
+                elif int(sale_action) == 13:
+                    self.view.clear_console()
+                    # display_all_sales(self.model, self.view)
+                elif int(sale_action) == 14:
+                    self.view.clear_console()
+                    # display_all_sales(self.model, self.view)
+                elif int(sale_action) == 15:
                     self.view.clear_console()
                     break
             else:
@@ -244,7 +263,7 @@ class Controller:
     def _is_sale_correct(module_no):
         try:
             num = int(module_no)
-            if num < 1 or num > 11:  # TODO change
+            if num < 1 or num > 15:
                 return False
         except ValueError:
             return False
