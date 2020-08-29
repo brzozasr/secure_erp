@@ -1,5 +1,6 @@
 from models.model_dict.id_enum import ID
 from models.model_dict.id_store import *
+from datetime import datetime
 
 current_dir = os.path.dirname(os.path.realpath(__file__))
 json_file = os.path.join(current_dir, "sale.json")
@@ -162,8 +163,32 @@ def product_biggest_revenue(crm_dict, products_dict, sale_dict):
     return None
 
 
-def no_transactions_between_given_dates(crm_dict, products_dict, sale_dict):
+def no_transactions_between_dates(start_date, end_date, crm_dict, products_dict, sale_dict):
     full_sale_dict = select_data_to_show_sale(crm_dict, products_dict, sale_dict)
+    if len(full_sale_dict) > 0:
+        start_date = datetime(*map(int, start_date.split('-')))
+        end_date = datetime(*map(int, end_date.split('-')))
+        counter = 0
+        for key_sale, value_sale in full_sale_dict.items():
+            date_sale = datetime(*map(int, value_sale['date_sale'].split('-')))
+            if start_date <= date_sale <= end_date:
+                counter += 1
+        return counter
+    return None
+
+
+def sum_price_transactions_between_dates(start_date, end_date, crm_dict, products_dict, sale_dict):
+    full_sale_dict = select_data_to_show_sale(crm_dict, products_dict, sale_dict)
+    if len(full_sale_dict) > 0:
+        start_date = datetime(*map(int, start_date.split('-')))
+        end_date = datetime(*map(int, end_date.split('-')))
+        price_sum = 0
+        for key_sale, value_sale in full_sale_dict.items():
+            date_sale = datetime(*map(int, value_sale['date_sale'].split('-')))
+            if start_date <= date_sale <= end_date:
+                price_sum += value_sale['id_prod_sale'][1] * value_sale['quantity_sale']
+        return price_sum
+    return None
 
 
 def _is_quantity_correct(quantity_sale, id_prod, products_dict):
@@ -199,14 +224,14 @@ if __name__ == "__main__":
                        "email_crm": "d.brzozowska@somfy.com"},
                  "8": {"name_crm": "Magdalena", "surname_crm": "Ba\u0142on", "company_crm": "Dexter",
                        "email_crm": "m.balon@dexter.com"}}
-    prod_dict = {"1": {"name_prod": "Chleb razowy", "price_prod": 4.5, "quantity_prod": 340},
+    prod_dict = {"1": {"name_prod": "Chleb razowy", "price_prod": 4.51, "quantity_prod": 340},
                  "2": {"name_prod": "Mas\u0142o", "price_prod": 8.75, "quantity_prod": 85},
                  "3": {"name_prod": "\u015amietana", "price_prod": 4.25, "quantity_prod": 1200}}
-    sale_dict1 = {"1": {"id_crm_sale": "6", "id_prod_sale": "2", "quantity_sale": 40, "date_sale": "2020-08-28"},
-                  "2": {"id_crm_sale": "8", "id_prod_sale": "1", "quantity_sale": 45, "date_sale": "2020-07-03"},
+    sale_dict1 = {"1": {"id_crm_sale": "6", "id_prod_sale": "2", "quantity_sale": 40, "date_sale": "2020-08-30"},
+                  "2": {"id_crm_sale": "8", "id_prod_sale": "1", "quantity_sale": 45, "date_sale": "2020-04-30"},
                   "3": {"id_crm_sale": "8", "id_prod_sale": "1", "quantity_sale": 50, "date_sale": "2020-07-04"},
                   "4": {"id_crm_sale": "6", "id_prod_sale": "2", "quantity_sale": 60, "date_sale": "2020-08-29"},
-                  "5": {"id_crm_sale": "8", "id_prod_sale": "1", "quantity_sale": 99, "date_sale": "2020-07-03"},}
+                  "5": {"id_crm_sale": "8", "id_prod_sale": "1", "quantity_sale": 99, "date_sale": "2020-07-03"}}
 
     # insert_sale(crm_dict1, prod_dict, sale_dict1, "8", "3", 200, "2020-09-01")
     # print(sale_dict1)
@@ -215,5 +240,6 @@ if __name__ == "__main__":
     # update_sale(crm_dict1, prod_dict, sale_dict1, "2", "8", "1", 440, "2020-09-01")
     # print(sale_dict1)
     # print(prod_dict)
-    print(product_biggest_revenue(crm_dict1, prod_dict, sale_dict1))
-
+    # print(product_biggest_revenue(crm_dict1, prod_dict, sale_dict1))
+    print(no_transactions_between_dates("2020-02-01", "2020-08-30", crm_dict1, prod_dict, sale_dict1))
+    print(sum_price_transactions_between_dates("2020-02-01", "2020-08-30", crm_dict1, prod_dict, sale_dict1))

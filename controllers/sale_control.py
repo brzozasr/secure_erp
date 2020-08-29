@@ -12,6 +12,8 @@ len_sale = {"len_id_sale": (1, 6),
 len_min = 0
 len_max = 1
 
+len_date = 10
+
 
 def display_insert_sale(model, view):
     is_working = True
@@ -257,6 +259,90 @@ def display_get_product_biggest_revenue(model, view):
     else:
         view.error_message = "There is no data to display."
         view.print_message()
+
+
+def display_get_no_transactions_between_dates(model, view):
+    is_working = True
+    while is_working:
+        print(f"\033[36mEntering dates to count number of transactions between two given dates "
+              f"or write \"exit\" to go menu up:\033[0m")
+        dates_list = []
+        is_inside_working = True
+        while is_inside_working:
+            start_date = input("Enter starting date: ")
+            if start_date == "exit":
+                is_working = False
+                is_inside_working = False
+            elif _is_len_correct(len(start_date), len_date, len_date) and _is_date_correct(start_date):
+                dates_list.append(start_date)
+                break
+            else:
+                view.error_message = f"Invalid date (YYYY-MM-DD), the length should equal {len_date}!!!"
+                view.print_message()
+
+        while is_inside_working:
+            end_date = input("Enter ending date: ")
+            if end_date == "exit":
+                is_working = False
+                is_inside_working = False
+            elif _is_len_correct(len(end_date), len_date, len_date) and _is_date_correct(end_date):
+                dates_list.append(end_date)
+                no_transactions = model.get_no_transactions_between_dates(*dates_list)
+                if no_transactions is not None:
+                    is_working = False
+                    is_inside_working = False
+                    view.clear_console()
+                    view.display_no_transactions_between_dates(no_transactions, dates_list)
+                else:
+                    dates_list.clear()
+                    view.error_message = "There is no data to display."
+                    view.print_message()
+                    break
+            else:
+                view.error_message = f"Invalid date (YYYY-MM-DD), the length should equal {len_date}!!!"
+                view.print_message()
+
+
+def display_get_sum_price_transactions_between_dates(model, view):
+    is_working = True
+    while is_working:
+        print(f"\033[36mEntering dates to sum the price of transactions between two given dates "
+              f"or write \"exit\" to go menu up:\033[0m")
+        dates_list = []
+        is_inside_working = True
+        while is_inside_working:
+            start_date = input("Enter starting date: ")
+            if start_date == "exit":
+                is_working = False
+                is_inside_working = False
+            elif _is_len_correct(len(start_date), len_date, len_date) and _is_date_correct(start_date):
+                dates_list.append(start_date)
+                break
+            else:
+                view.error_message = f"Invalid date (YYYY-MM-DD), the length should equal {len_date}!!!"
+                view.print_message()
+
+        while is_inside_working:
+            end_date = input("Enter ending date: ")
+            if end_date == "exit":
+                is_working = False
+                is_inside_working = False
+            elif _is_len_correct(len(end_date), len_date, len_date) and _is_date_correct(end_date):
+                dates_list.append(end_date)
+                sum_transactions = model.get_sum_price_transactions_between_dates(*dates_list)
+                if sum_transactions is not None:
+                    is_working = False
+                    is_inside_working = False
+                    view.clear_console()
+                    view.display_sum_price_transactions_between_dates(sum_transactions, dates_list)
+                else:
+                    dates_list.clear()
+                    view.error_message = "There is no data to display."
+                    view.print_message()
+                    break
+            else:
+                view.error_message = f"Invalid date (YYYY-MM-DD), the length should equal {len_date}!!!"
+                view.print_message()
 
 
 def _is_len_correct(length, min_length, max_length):

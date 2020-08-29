@@ -217,10 +217,10 @@ class Controller:
                     display_get_product_biggest_revenue(self.model, self.view)
                 elif int(sale_action) == 13:
                     self.view.clear_console()
-                    # display_all_sales(self.model, self.view)
+                    display_get_no_transactions_between_dates(self.model, self.view)
                 elif int(sale_action) == 14:
                     self.view.clear_console()
-                    # display_all_sales(self.model, self.view)
+                    display_get_sum_price_transactions_between_dates(self.model, self.view)
                 elif int(sale_action) == 15:
                     self.view.clear_console()
                     break

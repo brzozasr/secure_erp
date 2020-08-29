@@ -184,6 +184,22 @@ class View:
             print(header + content + line)
 
     @staticmethod
+    def display_no_transactions_between_dates(no, dates):
+        start_date, end_date = dates
+        line = f"+{'-' * 58}+{'-' * 10}+"
+        txt = f'Number of transactions between {start_date} and {end_date}'
+        content = f"|{txt:<58}|{no:^10}|\n"
+        print(line + "\n" + content + line)
+
+    @staticmethod
+    def display_sum_price_transactions_between_dates(sum_trans, dates):
+        start_date, end_date = dates
+        line = f"+{'-' * 65}+{'-' * 14}+"
+        txt = f'Sum the price of transactions between {start_date} and {end_date}'
+        content = f"|{txt:<65}|{sum_trans:^14.2f}|\n"
+        print(line + "\n" + content + line)
+
+    @staticmethod
     def clear_console():
         """Function clears the console."""
         if os.name in ('nt', 'dos'):

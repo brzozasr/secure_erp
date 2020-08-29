@@ -162,6 +162,12 @@ class ModelJSON:
     def get_product_biggest_revenue(self):
         return product_biggest_revenue(self.crm, self.products, self.sale)
 
+    def get_no_transactions_between_dates(self, start_date, end_date):
+        return no_transactions_between_dates(start_date, end_date, self.crm, self.products, self.sale)
+
+    def get_sum_price_transactions_between_dates(self, start_date, end_date):
+        return sum_price_transactions_between_dates(start_date, end_date, self.crm, self.products, self.sale)
+
     def write_sale(self):
         write_sale_to_file(self.sale)
 
