@@ -78,10 +78,13 @@ def update_sale(crm_dict, products_dict, sale_dict, *sale_value):
     key_list = ["id_crm_sale", "id_prod_sale", "quantity_sale", "date_sale"]
     if len(sale_value) == 5:
         id_sale, id_crm, id_prod, quantity_sale, date_sale = sale_value
-        if id_prod == sale_dict[str(id_sale)]['id_prod_sale']:
-            tmp_quantity = sale_dict[str(id_sale)]['quantity_sale'] + products_dict[id_prod]['quantity_prod']
+        if _id_exists(id_sale, sale_dict) and _id_exists(id_prod, products_dict):
+            if id_prod == sale_dict[str(id_sale)]['id_prod_sale']:
+                tmp_quantity = sale_dict[str(id_sale)]['quantity_sale'] + products_dict[id_prod]['quantity_prod']
+            else:
+                tmp_quantity = products_dict[id_prod]['quantity_prod']
         else:
-            tmp_quantity = products_dict[id_prod]['quantity_prod']
+            tmp_quantity = 0
 
         if not _id_exists(id_sale, sale_dict):
             print('\033[31m', f"The sale's ID \"{id_crm}\" not in the database!", '\033[0m')
@@ -210,6 +213,7 @@ def _id_exists(id_key, checked_dict):
     return False
 
 
+<<<<<<< HEAD
 def _get_prod_price(id_prod, products_dict):
     if len(products_dict) > 0:
         if products_dict[id_prod]['price_prod']:
@@ -218,3 +222,29 @@ def _get_prod_price(id_prod, products_dict):
             return None
     return None
 
+=======
+if __name__ == "__main__":
+    crm_dict1 = {"6": {"name_crm": "Dagmara", "surname_crm": "Brzozowska", "company_crm": "Somfy Sp. z o.o.",
+                       "email_crm": "d.brzozowska@somfy.com"},
+                 "8": {"name_crm": "Magdalena", "surname_crm": "Ba\u0142on", "company_crm": "Dexter",
+                       "email_crm": "m.balon@dexter.com"}}
+    prod_dict = {"1": {"name_prod": "Chleb razowy", "price_prod": 4.51, "quantity_prod": 340},
+                 "2": {"name_prod": "Mas\u0142o", "price_prod": 8.75, "quantity_prod": 85},
+                 "3": {"name_prod": "\u015amietana", "price_prod": 4.25, "quantity_prod": 1200}}
+    sale_dict1 = {"1": {"id_crm_sale": "6", "id_prod_sale": "2", "quantity_sale": 40, "date_sale": "2020-08-30"},
+                  "2": {"id_crm_sale": "8", "id_prod_sale": "1", "quantity_sale": 45, "date_sale": "2020-04-30"},
+                  "3": {"id_crm_sale": "8", "id_prod_sale": "1", "quantity_sale": 50, "date_sale": "2020-07-04"},
+                  "4": {"id_crm_sale": "6", "id_prod_sale": "2", "quantity_sale": 60, "date_sale": "2020-08-29"},
+                  "5": {"id_crm_sale": "8", "id_prod_sale": "1", "quantity_sale": 99, "date_sale": "2020-07-03"}}
+
+    # insert_sale(crm_dict1, prod_dict, sale_dict1, "8", "3", 200, "2020-09-01")
+    # print(sale_dict1)
+    # print(prod_dict)
+    # print('-' * 40)
+    # update_sale(crm_dict1, prod_dict, sale_dict1, "2", "8", "1", 440, "2020-09-01")
+    # print(sale_dict1)
+    # print(prod_dict)
+    # print(product_biggest_revenue(crm_dict1, prod_dict, sale_dict1))
+    print(no_transactions_between_dates("2020-02-01", "2020-08-30", crm_dict1, prod_dict, sale_dict1))
+    print(sum_price_transactions_between_dates("2020-02-01", "2020-08-30", crm_dict1, prod_dict, sale_dict1))
+>>>>>>> develop

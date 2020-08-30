@@ -297,6 +297,7 @@ def display_get_no_transactions_between_dates(model, view):
                     dates_list.clear()
                     view.error_message = "There is no data to display."
                     view.print_message()
+                    is_working = False
                     break
             else:
                 view.error_message = f"Invalid date (YYYY-MM-DD), the length should equal {len_date}!!!"
@@ -339,6 +340,7 @@ def display_get_sum_price_transactions_between_dates(model, view):
                     dates_list.clear()
                     view.error_message = "There is no data to display."
                     view.print_message()
+                    is_working = False
                     break
             else:
                 view.error_message = f"Invalid date (YYYY-MM-DD), the length should equal {len_date}!!!"

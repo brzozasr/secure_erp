@@ -250,7 +250,6 @@ def display_update_hr(model, view):
                 hash_pass = hashlib.sha1(str(password).encode('utf-8'))
                 password = hash_pass.hexdigest()
                 insert_data.append(password)
-                print(insert_data)
                 if model.update_hr(*insert_data):
                     insert_data.clear()
                     is_working = False
@@ -322,7 +321,7 @@ def display_min_max_age_hr(model, view):
 
 
 def display_average_age_hr(model, view):
-    if len(model.hr) > 0:
+    if len(model.hr) > 1:
         view.clear_console()
         view.display_aver_age_hr(model.average_age_hr())
     else:
