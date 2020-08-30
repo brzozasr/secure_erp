@@ -40,11 +40,7 @@ def login_hr(dict_hr, email_hr):
 
 
 def delete_hr(id_hr, hr_dict):
-    is_key = False
-    for id_key in hr_dict.keys():
-        if id_key == str(id_hr):
-            is_key = True
-    if is_key:
+    if id_hr in hr_dict and id_hr != "0":
         del hr_dict[str(id_hr)]
         print('\033[31m', f"The record with the key \"{id_hr}\" was removed!", '\033[0m')
         return True
@@ -54,11 +50,7 @@ def delete_hr(id_hr, hr_dict):
 
 
 def select_hr(id_hr, hr_dict):
-    is_key = False
-    for id_key in hr_dict.keys():
-        if id_key == str(id_hr):
-            is_key = True
-    if is_key:
+    if id_hr in hr_dict and id_hr != "0":
         return {str(id_hr): hr_dict[str(id_hr)]}
     else:
         print('\033[31m', f"There is no such key \"{id_hr}\" in the database!", '\033[0m')

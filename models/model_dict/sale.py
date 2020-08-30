@@ -78,10 +78,13 @@ def update_sale(crm_dict, products_dict, sale_dict, *sale_value):
     key_list = ["id_crm_sale", "id_prod_sale", "quantity_sale", "date_sale"]
     if len(sale_value) == 5:
         id_sale, id_crm, id_prod, quantity_sale, date_sale = sale_value
-        if id_prod == sale_dict[str(id_sale)]['id_prod_sale']:
-            tmp_quantity = sale_dict[str(id_sale)]['quantity_sale'] + products_dict[id_prod]['quantity_prod']
+        if _id_exists(id_sale, sale_dict) and _id_exists(id_prod, products_dict):
+            if id_prod == sale_dict[str(id_sale)]['id_prod_sale']:
+                tmp_quantity = sale_dict[str(id_sale)]['quantity_sale'] + products_dict[id_prod]['quantity_prod']
+            else:
+                tmp_quantity = products_dict[id_prod]['quantity_prod']
         else:
-            tmp_quantity = products_dict[id_prod]['quantity_prod']
+            tmp_quantity = 0
 
         if not _id_exists(id_sale, sale_dict):
             print('\033[31m', f"The sale's ID \"{id_crm}\" not in the database!", '\033[0m')
@@ -208,15 +211,6 @@ def _id_exists(id_key, checked_dict):
         else:
             return False
     return False
-
-
-def _get_prod_price(id_prod, products_dict):
-    if len(products_dict) > 0:
-        if products_dict[id_prod]['price_prod']:
-            return products_dict[id_prod]['price_prod']
-        else:
-            return None
-    return None
 
 
 if __name__ == "__main__":
