@@ -170,3 +170,6 @@ dmypy.json
 .DS_Store
 .AppleDouble
 .LSOverride
+
+# JSON file
+*.json

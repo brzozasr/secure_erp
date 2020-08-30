@@ -176,11 +176,13 @@ class View:
     def display_product_biggest_revenue(prod_data):
         if prod_data is not None:
             prod_name, prod_revenue = prod_data
-            col_first, col_second = (50, 20)
+            prod_revenue = f"{prod_revenue:,.2f}"
+            prod_revenue = prod_revenue.replace(',', ' ')
+            col_first, col_second = (50, 22)
             line = f'+{"-" * col_first}+{"-" * col_second}+'
             title_line = f'|{"Product made the biggest revenue":^{col_first}}|{"Revenue":^{col_second}}|\n'
             header = line + "\n" + title_line + line + "\n"
-            content = f'|{prod_name:<{col_first}}|{prod_revenue:^{col_second}.2f}|\n'
+            content = f'|{prod_name:<{col_first}}|{prod_revenue:^{col_second}}|\n'
             print(header + content + line)
 
     @staticmethod
@@ -194,9 +196,11 @@ class View:
     @staticmethod
     def display_sum_price_transactions_between_dates(sum_trans, dates):
         start_date, end_date = dates
-        line = f"+{'-' * 65}+{'-' * 14}+"
+        line = f"+{'-' * 65}+{'-' * 22}+"
         txt = f'Sum the price of transactions between {start_date} and {end_date}'
-        content = f"|{txt:<65}|{sum_trans:^14.2f}|\n"
+        sum_trans = f"{sum_trans:,.2f}"
+        sum_trans = sum_trans.replace(',', ' ')
+        content = f"|{txt:<65}|{sum_trans:^22}|\n"
         print(line + "\n" + content + line)
 
     @staticmethod

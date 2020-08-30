@@ -77,7 +77,7 @@ def display_insert_hr(model, view):
                 is_inside_working = False
             elif _is_len_correct(len(department), len_hr["len_department_hr"][len_min],
                                  len_hr["len_department_hr"][len_max]):
-                insert_data.append(department)
+                insert_data.append(department.upper())
                 break
             else:
                 view.error_message = f"Invalid a employee's department, the length should be " \
@@ -213,7 +213,7 @@ def display_update_hr(model, view):
                 is_inside_working = False
             elif _is_len_correct(len(department), len_hr["len_department_hr"][len_min],
                                  len_hr["len_department_hr"][len_max]):
-                insert_data.append(department)
+                insert_data.append(department.upper())
                 break
             else:
                 view.error_message = f"Invalid a employee's department, the length should be " \
