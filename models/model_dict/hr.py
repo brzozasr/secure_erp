@@ -177,18 +177,12 @@ def birthday_into_two_weeks(hr_dict):
 
 def employees_by_department(hr_dict):
     if len(hr_dict) > 1:
-        department_set = set()
         department_dict = {}
-        for id_key, value in hr_dict.items():
-            if id_key != "0":
-                department_set.add(value['department_hr'])
-
-        for department in department_set:
-            for v in hr_dict.values():
-                if department in department_dict and department == v['department_hr']:
-                    department_dict[department] += 1
-                elif department == v['department_hr']:
-                    department_dict[department] = 1
+        for v in hr_dict.values():
+            if v['department_hr'] in department_dict and v['department_hr'] != 'admin':
+                department_dict[v['department_hr']] += 1
+            elif v['department_hr'] != 'admin':
+                department_dict[v['department_hr']] = 1
 
         return department_dict
     else:

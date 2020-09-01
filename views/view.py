@@ -77,9 +77,12 @@ class View:
         title = f"|{'Department':^{len_department}}|{'No employees':^14}|"
         header = line + "\n" + title + "\n" + line + "\n"
         content = ""
+        sum_employees = 0
         for key, value in result_dict.items():
             content += f"|{key:<{len_department}}|{value:>14}|\n"
-        print(header + content + line)
+            sum_employees += value
+        footer = f"|{'TOTAL:':<{len_department}}|{sum_employees:>14}|\n"
+        print(header + content + line + "\n" + footer + line)
 
     @staticmethod
     def display_products(products_dict, *len_prod_data):
